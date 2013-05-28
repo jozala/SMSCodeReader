@@ -4,11 +4,12 @@ public class SMSInfo {
 
     private final boolean senderKnown;
     private final boolean containsCode;
-    private String code;
+    private final String code;
 
-    public SMSInfo(boolean senderKnown, boolean containsCode) {
+    public SMSInfo(final boolean senderKnown, final boolean containsCode, final String code) {
         this.senderKnown = senderKnown;
         this.containsCode = containsCode;
+        this.code = code;
     }
 
     public boolean isSenderKnown() {

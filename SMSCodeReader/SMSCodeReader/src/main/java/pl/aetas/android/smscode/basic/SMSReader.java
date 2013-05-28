@@ -9,9 +9,9 @@ public class SMSReader {
 
     private final Clipboard clipboard;
     private final SMSInfoPresenter smsInfoPresenter;
-    private SMSAnalyser smsAnalyser;
+    private final SMSAnalyser smsAnalyser;
 
-    public SMSReader(SMSAnalyser smsAnalyser, Clipboard clipboard, SMSInfoPresenter smsInfoPresenter) {
+    public SMSReader(final SMSAnalyser smsAnalyser, final Clipboard clipboard, final SMSInfoPresenter smsInfoPresenter) {
         if (smsAnalyser == null) throw new NullPointerException("SMSAnalyser cannot be null");
         if (clipboard == null) throw new NullPointerException("Clipboard cannot be null");
         if (smsInfoPresenter == null) throw new NullPointerException("SMSInfoPresenter cannot be null");
@@ -21,11 +21,11 @@ public class SMSReader {
         this.smsAnalyser = smsAnalyser;
     }
 
-    public static SMSReader getInstance(Context context) {
+    public static SMSReader getInstance(final Context context) {
         return new SMSReader(new SMSAnalyser(), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
     }
 
-    public void readSMS(String sender, String body) {
+    public void readSMS(final String sender, final String body) {
         SMSInfo smsInfo = smsAnalyser.analyse(sender, body);
         if (smsInfo.isSenderKnown() && smsInfo.isContainsCode()) {
             clipboard.save(smsInfo.getCode());
