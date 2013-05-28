@@ -5,6 +5,9 @@ import android.content.Context;
 import pl.aetas.android.smscode.analyser.SMSAnalyser;
 import pl.aetas.android.smscode.analyser.SMSInfo;
 
+/**
+ * Main class responsible for processing all incoming SMS for SMSCodeReader app
+ */
 public class SMSReader {
 
     private final Clipboard clipboard;
@@ -25,9 +28,15 @@ public class SMSReader {
         return new SMSReader(new SMSAnalyser(), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
     }
 
+    /**
+     * Process SMS with given sender and body to analyse it, save code to clipboard and present information to user
+     *
+     * @param sender SMS sender
+     * @param body   SMS body
+     */
     public void readSMS(final String sender, final String body) {
         SMSInfo smsInfo = smsAnalyser.analyse(sender, body);
-        if (smsInfo.isSenderKnown() && smsInfo.isContainsCode()) {
+        if (smsInfo.isSMSWithCode()) {
             clipboard.save(smsInfo.getCode());
             smsInfoPresenter.presentInfoToUserIfChosen(smsInfo);
         }

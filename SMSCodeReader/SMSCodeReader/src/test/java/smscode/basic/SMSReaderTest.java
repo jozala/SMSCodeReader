@@ -46,9 +46,8 @@ public class SMSReaderTest {
     }
 
     @Test
-    public void shouldCopyCodeToClipboardFromSMSWhichSenderIsKnownAndContainCode() throws Exception {
-        when(smsInfo.isSenderKnown()).thenReturn(true);
-        when(smsInfo.isContainsCode()).thenReturn(true);
+    public void shouldCopyCodeToClipboardFromSMSWhichIsSMSWithCode() throws Exception {
+        when(smsInfo.isSMSWithCode()).thenReturn(true);
         when(smsInfo.getCode()).thenReturn("123456");
 
         smsReader.readSMS(KNOWN_BANK_SENDER, SMS_BODY_WITH_CODE);
@@ -56,27 +55,16 @@ public class SMSReaderTest {
     }
 
     @Test
-    public void shouldNotTryToCopyCodeToClipboardFromSMSWhichSenderIsNotKnown() throws Exception {
-        when(smsInfo.isSenderKnown()).thenReturn(false);
-        when(smsInfo.isContainsCode()).thenReturn(true);
-
-        smsReader.readSMS(UNKNOWN_BANK_SENDER, SMS_BODY_WITH_CODE);
-        verify(clipboard, never()).save(anyString());
-    }
-
-    @Test
-    public void shouldNotTryToCopyCodeToClipboardFromSMSWhichDoesNotContainCode() throws Exception {
-        when(smsInfo.isSenderKnown()).thenReturn(true);
-        when(smsInfo.isContainsCode()).thenReturn(false);
+    public void shouldNotTryToCopyCodeToClipboardFromSMSWhichIsNotSMSWithCode() throws Exception {
+        when(smsInfo.isSMSWithCode()).thenReturn(false);
 
         smsReader.readSMS(KNOWN_BANK_SENDER, SMS_BODY_WITHOUT_CODE);
         verify(clipboard, never()).save(anyString());
     }
 
     @Test
-    public void shouldPresentInfoToUserWhenSMSIsFromKnownSenderAndContainsCode() throws Exception {
-        when(smsInfo.isSenderKnown()).thenReturn(true);
-        when(smsInfo.isContainsCode()).thenReturn(true);
+    public void shouldPresentInfoToUserWhenSMSIsSMSWithCode() throws Exception {
+        when(smsInfo.isSMSWithCode()).thenReturn(true);
 
         smsReader.readSMS(KNOWN_BANK_SENDER, SMS_BODY_WITH_CODE);
 

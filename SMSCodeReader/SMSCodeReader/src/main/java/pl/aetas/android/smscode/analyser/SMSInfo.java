@@ -1,26 +1,11 @@
 package pl.aetas.android.smscode.analyser;
 
-public class SMSInfo {
+public interface SMSInfo {
+    boolean isSMSWithCode();
 
-    private final boolean senderKnown;
-    private final boolean containsCode;
-    private final String code;
+    String getCode();
 
-    public SMSInfo(final boolean senderKnown, final boolean containsCode, final String code) {
-        this.senderKnown = senderKnown;
-        this.containsCode = containsCode;
-        this.code = code;
-    }
+    String getSender();
 
-    public boolean isSenderKnown() {
-        return senderKnown;
-    }
-
-    public boolean isContainsCode() {
-        return containsCode;
-    }
-
-    public String getCode() {
-        return code;
-    }
+    String getBody();
 }
