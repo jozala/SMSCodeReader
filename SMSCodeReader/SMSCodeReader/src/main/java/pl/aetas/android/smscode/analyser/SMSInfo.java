@@ -4,6 +4,7 @@ public class SMSInfo {
 
     private final boolean senderKnown;
     private final boolean containsCode;
+    private String code;
 
     public SMSInfo(boolean senderKnown, boolean containsCode) {
         this.senderKnown = senderKnown;
@@ -16,5 +17,9 @@ public class SMSInfo {
 
     public boolean isContainsCode() {
         return containsCode;
+    }
+
+    public String getCode() {
+        return code;
     }
 }

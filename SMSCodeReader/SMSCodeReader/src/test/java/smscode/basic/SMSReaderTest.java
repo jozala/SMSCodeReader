@@ -49,9 +49,10 @@ public class SMSReaderTest {
     public void shouldCopyCodeToClipboardFromSMSWhichSenderIsKnownAndContainCode() throws Exception {
         when(smsInfo.isSenderKnown()).thenReturn(true);
         when(smsInfo.isContainsCode()).thenReturn(true);
+        when(smsInfo.getCode()).thenReturn("123456");
 
         smsReader.readSMS(KNOWN_BANK_SENDER, SMS_BODY_WITH_CODE);
-        verify(clipboard).save(anyString());
+        verify(clipboard).save("123456");
     }
 
     @Test
@@ -72,6 +73,15 @@ public class SMSReaderTest {
         verify(clipboard, never()).save(anyString());
     }
 
+    @Test
+    public void shouldPresentInfoToUserWhenSMSIsFromKnownSenderAndContainsCode() throws Exception {
+        when(smsInfo.isSenderKnown()).thenReturn(true);
+        when(smsInfo.isContainsCode()).thenReturn(true);
+
+        smsReader.readSMS(KNOWN_BANK_SENDER, SMS_BODY_WITH_CODE);
+
+        verify(smsInfoPresenter).presentInfoToUserIfChosen(smsInfo);
+    }
 }
 
 

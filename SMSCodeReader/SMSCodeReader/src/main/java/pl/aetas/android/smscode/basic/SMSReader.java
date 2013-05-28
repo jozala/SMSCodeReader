@@ -25,14 +25,9 @@ public class SMSReader {
 
     public void readSMS(String sender, String body) {
         SMSInfo smsInfo = smsAnalyser.analyse(sender, body);
-        if (!smsInfo.isSenderKnown()) {
-            return;
+        if (smsInfo.isSenderKnown() && smsInfo.isContainsCode()) {
+            clipboard.save(smsInfo.getCode());
+            smsInfoPresenter.presentInfoToUserIfChosen(smsInfo);
         }
-        if (!smsInfo.isContainsCode()) {
-            return;
-        }
-        String code = null;
-        clipboard.save(code);
-
     }
 }
