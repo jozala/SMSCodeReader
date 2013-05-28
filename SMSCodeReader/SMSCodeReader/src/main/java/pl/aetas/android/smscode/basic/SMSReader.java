@@ -1,43 +1,37 @@
 package pl.aetas.android.smscode.basic;
 
-import pl.aetas.android.smscode.parser.SMSCodeParser;
-import pl.aetas.android.smscode.verifier.SMSBodyVerifier;
-import pl.aetas.android.smscode.verifier.SMSSenderVerifier;
+import pl.aetas.android.smscode.analyser.SMSAnalyser;
+import pl.aetas.android.smscode.analyser.SMSInfo;
 
 public class SMSReader {
 
-    private SMSCodeParser smsCodeParser;
-    private SMSSenderVerifier smsSenderVerifier;
-    private SMSBodyVerifier smsBodyVerifier;
+    private SMSAnalyser smsAnalyser;
     private Clipboard clipboard;
-    private SMSCodePresenter smsCodePresenter;
+    private SMSInfoPresenter smsInfoPresenter;
 
-    public SMSReader(SMSCodeParser smsCodeParser, SMSSenderVerifier smsSenderVerifier, SMSBodyVerifier smsBodyVerifier, Clipboard clipboard, SMSCodePresenter smsCodePresenter) {
-        if (smsCodeParser == null) throw new NullPointerException("SMSCodeParser cannot be null");
-        if (smsSenderVerifier == null) throw new NullPointerException("SMSBodyVerifier cannot be null");
-        if (smsBodyVerifier == null) throw new NullPointerException("SMSBodyVerifier cannot be null");
+    public SMSReader(SMSAnalyser smsAnalyser, Clipboard clipboard, SMSInfoPresenter smsInfoPresenter) {
+        if (smsAnalyser == null) throw new NullPointerException("SMSAnalyser cannot be null");
         if (clipboard == null) throw new NullPointerException("Clipboard cannot be null");
-        if (smsCodePresenter == null) throw new NullPointerException("SMSCodePresenter cannot be null");
+        if (smsInfoPresenter == null) throw new NullPointerException("SMSInfoPresenter cannot be null");
 
-        this.smsCodeParser = smsCodeParser;
-        this.smsSenderVerifier = smsSenderVerifier;
-        this.smsBodyVerifier = smsBodyVerifier;
         this.clipboard = clipboard;
-        this.smsCodePresenter = smsCodePresenter;
+        this.smsInfoPresenter = smsInfoPresenter;
+        this.smsAnalyser = smsAnalyser;
     }
 
     public static SMSReader getInstance() {
-        return new SMSReader(new SMSCodeParser(), new SMSSenderVerifier(), new SMSBodyVerifier(), new Clipboard(), new SMSCodePresenter());
+        return new SMSReader(new SMSAnalyser(), new Clipboard(), new SMSInfoPresenter());
     }
 
     public void readSMS(String sender, String body) {
-        if (!smsSenderVerifier.checkIfSenderKnown(sender)) {
+        SMSInfo smsInfo = smsAnalyser.analyse(sender, body);
+        if (!smsInfo.isSenderKnown()) {
             return;
         }
-        if (!smsBodyVerifier.checkIfContainsCode(body)) {
+        if (!smsInfo.isContainsCode()) {
             return;
         }
-        String code = smsCodeParser.retrieveCode(body);
+        String code = null;
         clipboard.save(code);
 
     }

@@ -1,4 +1,4 @@
-package pl.aetas.android.smscode.verifier;
+package pl.aetas.android.smscode.analyser.verifier;
 
 public class SMSSenderVerifier {
     public boolean checkIfSenderKnown(String senderId) {
