@@ -6,12 +6,12 @@ package pl.aetas.android.smscode.analyser;
 public class SMSWithCodeInfo implements SMSInfo {
     private final String code;
     private final String body;
-    private final String sender;
+    private final String senderName;
 
-    public SMSWithCodeInfo(final String sender, final String body, final String code) {
+    public SMSWithCodeInfo(final String senderName, final String body, final String code) {
         this.code = code;
         this.body = body;
-        this.sender = sender;
+        this.senderName = senderName;
     }
 
     @Override
@@ -25,8 +25,8 @@ public class SMSWithCodeInfo implements SMSInfo {
     }
 
     @Override
-    public String getSender() {
-        return sender;
+    public String getSenderOfficialName() {
+        return senderName;
     }
 
     @Override

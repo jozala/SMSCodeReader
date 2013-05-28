@@ -5,6 +5,13 @@ package pl.aetas.android.smscode.analyser;
  */
 public class SMSWithoutCodeInfo implements SMSInfo {
 
+    private SMSWithoutCodeInfo() {
+    }
+
+    public static SMSWithoutCodeInfo createSMSWithoutCodeInfo() {
+        return new SMSWithoutCodeInfo();
+    }
+
     @Override
     public boolean isSMSWithCode() {
         return false;
@@ -16,7 +23,7 @@ public class SMSWithoutCodeInfo implements SMSInfo {
     }
 
     @Override
-    public String getSender() {
+    public String getSenderOfficialName() {
         throw new IllegalStateException("No known sender as this is SMSWithoutCodeInfo");
     }
 

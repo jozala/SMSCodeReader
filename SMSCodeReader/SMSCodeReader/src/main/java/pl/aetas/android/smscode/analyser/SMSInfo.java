@@ -5,7 +5,7 @@ public interface SMSInfo {
 
     String getCode();
 
-    String getSender();
+    String getSenderOfficialName();
 
     String getBody();
 }

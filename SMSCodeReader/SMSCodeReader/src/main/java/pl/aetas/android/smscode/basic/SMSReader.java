@@ -4,6 +4,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import pl.aetas.android.smscode.analyser.SMSAnalyser;
 import pl.aetas.android.smscode.analyser.SMSInfo;
+import pl.aetas.android.smscode.parser.SMSCodeParser;
+import pl.aetas.android.smscode.resource.KnownSendersResource;
 
 /**
  * Main class responsible for processing all incoming SMS for SMSCodeReader app
@@ -25,7 +27,7 @@ public class SMSReader {
     }
 
     public static SMSReader getInstance(final Context context) {
-        return new SMSReader(new SMSAnalyser(), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
+        return new SMSReader(new SMSAnalyser(new KnownSendersResource(), new SMSCodeParser()), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
     }
 
     /**
