@@ -18,7 +18,7 @@ public class SMSWithoutCodeInfo implements SMSInfo {
     }
 
     @Override
-    public String getCode() {
+    public String getCode() throws IllegalStateException {
         throw new IllegalStateException("Code cannot be given as this is SMSWithoutCodeInfo");
     }
 

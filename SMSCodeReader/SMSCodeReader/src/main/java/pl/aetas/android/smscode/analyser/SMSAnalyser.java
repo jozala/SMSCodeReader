@@ -14,6 +14,13 @@ public class SMSAnalyser {
         this.smsCodeParser = smsCodeParser;
     }
 
+    /**
+     * Analyse given SMS sender and body and returns {@link SMSInfo} generated using this data
+     *
+     * @param sender bare sender of an SMS. Can be number or a name.
+     * @param body   full body of an SMS
+     * @return information about analysed SMS sender and body
+     */
     public SMSInfo analyse(String sender, String body) {
         if (!knownSendersResource.isSenderKnown(sender)) {
             return SMSWithoutCodeInfo.createSMSWithoutCodeInfo();
