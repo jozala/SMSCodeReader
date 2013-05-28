@@ -1,7 +1,18 @@
 package pl.aetas.android.smscode.basic;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+
 public class Clipboard {
-    public void save(String string) {
-        throw new IllegalAccessError("Not implemented");
+    private final static String CLIPDATA_LABEL = "SMSCodeReader code";
+
+    private final ClipboardManager clipboardManager;
+
+    public Clipboard(final ClipboardManager clipboardManager) {
+        this.clipboardManager = clipboardManager;
+    }
+
+    public void save(String stringToSave) {
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(CLIPDATA_LABEL, stringToSave));
     }
 }

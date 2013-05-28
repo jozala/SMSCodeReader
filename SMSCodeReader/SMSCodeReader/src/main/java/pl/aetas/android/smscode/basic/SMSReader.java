@@ -1,13 +1,15 @@
 package pl.aetas.android.smscode.basic;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import pl.aetas.android.smscode.analyser.SMSAnalyser;
 import pl.aetas.android.smscode.analyser.SMSInfo;
 
 public class SMSReader {
 
+    private final Clipboard clipboard;
+    private final SMSInfoPresenter smsInfoPresenter;
     private SMSAnalyser smsAnalyser;
-    private Clipboard clipboard;
-    private SMSInfoPresenter smsInfoPresenter;
 
     public SMSReader(SMSAnalyser smsAnalyser, Clipboard clipboard, SMSInfoPresenter smsInfoPresenter) {
         if (smsAnalyser == null) throw new NullPointerException("SMSAnalyser cannot be null");
@@ -19,8 +21,8 @@ public class SMSReader {
         this.smsAnalyser = smsAnalyser;
     }
 
-    public static SMSReader getInstance() {
-        return new SMSReader(new SMSAnalyser(), new Clipboard(), new SMSInfoPresenter());
+    public static SMSReader getInstance(Context context) {
+        return new SMSReader(new SMSAnalyser(), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
     }
 
     public void readSMS(String sender, String body) {
