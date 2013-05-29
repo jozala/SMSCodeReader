@@ -5,6 +5,7 @@ import android.content.Context;
 import pl.aetas.android.smscode.analyser.SMSAnalyser;
 import pl.aetas.android.smscode.analyser.SMSInfo;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
+import pl.aetas.android.smscode.resource.CodesRegularExpressionsResource;
 import pl.aetas.android.smscode.resource.KnownSendersResource;
 
 /**
@@ -27,7 +28,7 @@ public class SMSReader {
     }
 
     public static SMSReader getInstance(final Context context) {
-        return new SMSReader(new SMSAnalyser(new KnownSendersResource(), new SMSCodeParser()), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
+        return new SMSReader(new SMSAnalyser(new KnownSendersResource(), new SMSCodeParser(new CodesRegularExpressionsResource())), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
     }
 
     /**
