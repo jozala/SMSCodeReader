@@ -8,7 +8,7 @@ public class SMSWithoutCodeInfo implements SMSInfo {
     private SMSWithoutCodeInfo() {
     }
 
-    public static SMSWithoutCodeInfo createSMSWithoutCodeInfo() {
+    public static SMSInfo createSMSWithoutCodeInfo() {
         return new SMSWithoutCodeInfo();
     }
 

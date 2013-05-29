@@ -12,7 +12,7 @@ public class Clipboard {
         this.clipboardManager = clipboardManager;
     }
 
-    public void save(final String stringToSave) {
+    public void save(final CharSequence stringToSave) {
         clipboardManager.setPrimaryClip(ClipData.newPlainText(CLIPDATA_LABEL, stringToSave));
     }
 }

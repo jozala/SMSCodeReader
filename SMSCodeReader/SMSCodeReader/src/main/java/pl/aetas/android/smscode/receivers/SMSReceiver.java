@@ -9,7 +9,7 @@ import pl.aetas.android.smscode.basic.SMSReader;
 
 public class SMSReceiver extends BroadcastReceiver {
 
-    public static final String SMS_EXTRA_NAME = "pdus";
+    private static final String SMS_EXTRA_NAME = "pdus";
 
     @Override
     public void onReceive(Context context, Intent intent) {
