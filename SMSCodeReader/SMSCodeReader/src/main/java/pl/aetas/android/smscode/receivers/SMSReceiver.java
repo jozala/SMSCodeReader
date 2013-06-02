@@ -25,7 +25,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 String body = sms.getMessageBody();
                 String address = sms.getOriginatingAddress();
 
-                SMSReader smsReader = SMSReader.getInstance(context);
+                SMSReader smsReader = SMSReader.getInstance(context, address, body);
                 smsReader.readSMS(address, body);
 
             }

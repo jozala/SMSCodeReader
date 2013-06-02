@@ -1,9 +1,7 @@
 package pl.aetas.android.smscode.basic;
 
-import pl.aetas.android.smscode.analyser.SMSInfo;
-
 public class SMSInfoPresenter {
-    public void presentInfoToUserIfChosen(SMSInfo smsInfo) {
+    public void presentInfoToUserIfChosen(String smsSender, String smsBody, String code) {
         throw new IllegalAccessError("Not implemented");
     }
 }

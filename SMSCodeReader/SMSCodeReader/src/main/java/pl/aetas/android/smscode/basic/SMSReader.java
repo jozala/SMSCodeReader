@@ -2,8 +2,10 @@ package pl.aetas.android.smscode.basic;
 
 import android.content.ClipboardManager;
 import android.content.Context;
-import pl.aetas.android.smscode.analyser.SMSAnalyser;
-import pl.aetas.android.smscode.analyser.SMSInfo;
+import de.akquinet.android.androlog.Log;
+import pl.aetas.android.smscode.analyser.SMSFilter;
+import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
+import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
 import pl.aetas.android.smscode.resource.CodesRegularExpressionsResource;
 import pl.aetas.android.smscode.resource.KnownSendersResource;
@@ -15,33 +17,44 @@ public class SMSReader {
 
     private final Clipboard clipboard;
     private final SMSInfoPresenter smsInfoPresenter;
-    private final SMSAnalyser smsAnalyser;
+    private final SMSFilter smsFilter;
+    private final SMSCodeParser smsCodeParser;
 
-    public SMSReader(final SMSAnalyser smsAnalyser, final Clipboard clipboard, final SMSInfoPresenter smsInfoPresenter) {
-        if (smsAnalyser == null) throw new NullPointerException("SMSAnalyser cannot be null");
+    public SMSReader(final SMSFilter smsFilter, final Clipboard clipboard, final SMSCodeParser smsCodeParser, final SMSInfoPresenter smsInfoPresenter) {
+        if (smsFilter == null) throw new NullPointerException("SMSFilter cannot be null");
         if (clipboard == null) throw new NullPointerException("Clipboard cannot be null");
         if (smsInfoPresenter == null) throw new NullPointerException("SMSInfoPresenter cannot be null");
+        if (smsCodeParser == null) throw new NullPointerException("SMSCodeParser cannot be null");
 
         this.clipboard = clipboard;
         this.smsInfoPresenter = smsInfoPresenter;
-        this.smsAnalyser = smsAnalyser;
+        this.smsFilter = smsFilter;
+        this.smsCodeParser = smsCodeParser;
     }
 
-    public static SMSReader getInstance(final Context context) {
-        return new SMSReader(new SMSAnalyser(new KnownSendersResource(), new SMSCodeParser(new CodesRegularExpressionsResource())), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), new SMSInfoPresenter());
+    public static SMSReader getInstance(final Context context, final String sender, final String smsBody) {
+        SMSCodeParser smsCodeParser = new SMSCodeParser(new CodesRegularExpressionsResource(sender));
+        return new SMSReader(new SMSFilter(new KnownSendersResource(), smsCodeParser, sender, smsBody), new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)), smsCodeParser, new SMSInfoPresenter());
     }
 
     /**
      * Process SMS with given sender and body to analyse it, save code to clipboard and present information to user
-     *
-     * @param sender SMS sender
-     * @param body   SMS body
      */
-    public void readSMS(final String sender, final String body) {
-        SMSInfo smsInfo = smsAnalyser.analyse(sender, body);
-        if (smsInfo.isSMSWithCode()) {
-            clipboard.save(smsInfo.getCode());
-            smsInfoPresenter.presentInfoToUserIfChosen(smsInfo);
+    public void readSMS(String sender, String body) {
+        if (!smsFilter.checkIfSMSIsRelevantForCodeReader(sender)) {
+            return;
+        }
+
+        try {
+            String code = smsCodeParser.retrieveCodeFromSMSBodyForKnownSender();
+            clipboard.save(code);
+            smsInfoPresenter.presentInfoToUserIfChosen(sender, body, code);
+        } catch (UnknownSenderException e) {
+            Log.e(SMSReader.class.getName(), "Sender " + sender + " should be known (it has been checked earlier)", e);
+            throw new RuntimeException(e);
+        } catch (NoCodesForKnownSenderException e) {
+            Log.e(SMSReader.class.getName(), "Sender " + sender + " is known, but has no codes attached", e);
+            throw new RuntimeException(e);
         }
     }
 }
