@@ -4,6 +4,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.analyser.SMSFilter;
+import pl.aetas.android.smscode.exception.CodeNotFoundException;
 import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
@@ -45,13 +46,13 @@ public class SMSProcessor {
     /**
      * Process SMS with given sender and body to analyse it, save code to clipboard and present information to user
      */
-    public void readSMS() {
+    public void processSMS(String smsBody) {
         if (!smsFilter.checkIfSMSIsRelevantForCodeReader()) {
             return;
         }
 
         try {
-            String code = smsCodeParser.retrieveCodeFromSMSBodyForKnownSender();
+            String code = smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(smsBody);
             clipboard.save(code);
             smsInfoPresenter.presentInfoToUserIfChosen(code);
         } catch (UnknownSenderException e) {
@@ -59,6 +60,9 @@ public class SMSProcessor {
             throw new RuntimeException(e);
         } catch (NoCodesForKnownSenderException e) {
             Log.e(SMSProcessor.class.getName(), "Sender is known, but has no codes attached", e);
+            throw new RuntimeException(e);
+        } catch (CodeNotFoundException e) {
+            Log.e(SMSProcessor.class.getName(), "SMS is relevant for code reader, but code has not been found in message body", e);
             throw new RuntimeException(e);
         }
     }

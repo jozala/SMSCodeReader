@@ -17,6 +17,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @RunWith(RobolectricTestRunner.class)
 public class SMSProcessorTest {
 
+    public static final String SMS_BODY = "This is SMS body";
     //SUT
     private SMSProcessor smsProcessor;
 
@@ -41,9 +42,9 @@ public class SMSProcessorTest {
     @Test
     public void shouldCopyCodeToClipboardFromSMSWhichIsSMSWithCode() throws Exception {
         when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(true);
-        when(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender()).thenReturn("123456");
+        when(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(SMS_BODY)).thenReturn("123456");
 
-        smsProcessor.readSMS();
+        smsProcessor.processSMS(SMS_BODY);
         verify(clipboard).save("123456");
     }
 
@@ -51,16 +52,16 @@ public class SMSProcessorTest {
     public void shouldNotTryToCopyCodeToClipboardFromSMSWhichIsNotSMSWithCode() throws Exception {
         when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(false);
 
-        smsProcessor.readSMS();
+        smsProcessor.processSMS(SMS_BODY);
         verify(clipboard, never()).save(anyString());
     }
 
     @Test
     public void shouldPresentInfoToUserWhenSMSIsSMSWithCode() throws Exception {
         when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(true);
-        when(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender()).thenReturn("123456");
+        when(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(SMS_BODY)).thenReturn("123456");
 
-        smsProcessor.readSMS();
+        smsProcessor.processSMS(SMS_BODY);
 
         verify(smsInfoPresenter).presentInfoToUserIfChosen("123456");
     }
@@ -69,7 +70,7 @@ public class SMSProcessorTest {
     public void shouldNotTryToPresentInfoToUserWhenSMSInNotSMSWithCode() throws Exception {
         when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(false);
 
-        smsProcessor.readSMS();
+        smsProcessor.processSMS(SMS_BODY);
         verify(smsInfoPresenter, never()).presentInfoToUserIfChosen(anyString());
     }
 }

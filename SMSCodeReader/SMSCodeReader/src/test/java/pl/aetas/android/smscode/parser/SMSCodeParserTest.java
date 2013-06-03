@@ -37,9 +37,10 @@ public class SMSCodeParserTest {
     public void shouldRetrieveCodeUsingRegularExpressionFromResource() throws Exception {
         when(codesRegularExpressionsResource.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
         when(codesRegularExpressions.getMatchingRegularExpression()).thenReturn(codeRegularExpression);
-        when(codeRegularExpression.getCodeFromString()).thenReturn("147852");
+        String smsBody = "This is body of the SMS with some code";
+        when(codeRegularExpression.getCodeFromString(smsBody)).thenReturn("147852");
 
-        assertThat(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(), equalTo("147852"));
+        assertThat(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(smsBody), equalTo("147852"));
     }
 
     @Test
