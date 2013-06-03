@@ -37,7 +37,7 @@ public class SMSProcessor {
         SendersResource sendersResource = new SendersResource();
         Sender sender = sendersResource.getSender(senderName);
         SMSCodeParser smsCodeParser = new SMSCodeParser(sender);
-        SMSFilter smsFilter = new SMSFilter(sendersResource, smsCodeParser, senderName);
+        SMSFilter smsFilter = new SMSFilter(sendersResource, smsCodeParser, senderName, smsBody);
         Clipboard clipboard = new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
         SMSInfoPresenter smsInfoPresenter = new SMSInfoPresenter(senderName, smsBody);
         return new SMSProcessor(smsFilter, clipboard, smsCodeParser, smsInfoPresenter);

@@ -4,17 +4,14 @@ import java.util.Collections;
 import java.util.Set;
 
 public class CodesRegularExpressions {
-    private final String smsBody;
     private final Set<CodeRegularExpression> regularExpressions;
 
-    public CodesRegularExpressions(final String smsBody, final Set<CodeRegularExpression> regularExpressions) {
-        if (smsBody == null) throw new NullPointerException("smsBody cannot be null");
+    public CodesRegularExpressions(final Set<CodeRegularExpression> regularExpressions) {
         if (regularExpressions == null) throw new NullPointerException("regularExpressions cannot be null");
-        this.smsBody = smsBody;
         this.regularExpressions = Collections.unmodifiableSet(regularExpressions);
     }
 
-    public CodeRegularExpression getMatchingRegularExpression() {
+    public CodeRegularExpression getMatchingRegularExpression(String smsBody) {
         for (CodeRegularExpression regularExpression : regularExpressions) {
             if (regularExpression.matches(smsBody)) {
                 return regularExpression;
@@ -24,7 +21,7 @@ public class CodesRegularExpressions {
                 "Check with the #checkIfBodyContainsCode method first.");
     }
 
-    public boolean checkIfBodyContainsCode() {
+    public boolean checkIfBodyContainsCode(String smsBody) {
         for (CodeRegularExpression regularExpression : regularExpressions) {
             if (regularExpression.matches(smsBody)) {
                 return true;

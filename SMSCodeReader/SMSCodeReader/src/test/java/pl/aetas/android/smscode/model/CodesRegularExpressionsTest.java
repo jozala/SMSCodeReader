@@ -37,18 +37,18 @@ public class CodesRegularExpressionsTest {
         regExps.add(regExp2);
         regExps.add(regExp3);
 
-        codesRegularExpressions = new CodesRegularExpressions(SMS_BODY, regExps);
+        codesRegularExpressions = new CodesRegularExpressions(regExps);
     }
 
     @Test(expected = IllegalStateException.class)
     public void shouldThrowExceptionTryingToGetMatchingRegExpWhenNoMatchingRegExpAvailable() throws Exception {
-        codesRegularExpressions.getMatchingRegularExpression();
+        codesRegularExpressions.getMatchingRegularExpression(SMS_BODY);
     }
 
     @Test
     public void shouldReturnMatchingRegularExpression() throws Exception {
         Mockito.when(regExp2.matches(SMS_BODY)).thenReturn(true);
-        assertThat(codesRegularExpressions.getMatchingRegularExpression(), is(sameInstance(regExp2)));
+        assertThat(codesRegularExpressions.getMatchingRegularExpression(SMS_BODY), is(sameInstance(regExp2)));
 
     }
 }

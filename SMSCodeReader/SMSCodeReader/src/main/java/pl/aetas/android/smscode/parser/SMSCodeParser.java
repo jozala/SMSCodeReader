@@ -20,12 +20,12 @@ public class SMSCodeParser {
 
     public String retrieveCodeFromSMSBodyForKnownSender(String smsBody) throws UnknownSenderException, NoCodesForKnownSenderException, CodeNotFoundException {
         CodesRegularExpressions codesRegularExpressions = sender.getCodesRegularExpressions();
-        CodeRegularExpression codeRegularExpression = codesRegularExpressions.getMatchingRegularExpression();
+        CodeRegularExpression codeRegularExpression = codesRegularExpressions.getMatchingRegularExpression(smsBody);
         return codeRegularExpression.getCodeFromString(smsBody);
     }
 
-    public boolean checkIfBodyContainsCode() throws UnknownSenderException, NoCodesForKnownSenderException {
+    public boolean checkIfBodyContainsCode(String smsBody) throws UnknownSenderException, NoCodesForKnownSenderException {
         CodesRegularExpressions regularExpressionsForSender = sender.getCodesRegularExpressions();
-        return regularExpressionsForSender.checkIfBodyContainsCode();
+        return regularExpressionsForSender.checkIfBodyContainsCode(smsBody);
     }
 }

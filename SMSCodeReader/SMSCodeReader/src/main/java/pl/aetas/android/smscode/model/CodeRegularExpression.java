@@ -9,7 +9,7 @@ public class CodeRegularExpression {
     private final Pattern pattern;
     private final int relevantGroupNumber;
 
-    CodeRegularExpression(final String regExp, int relevantGroupNumber) {
+    public CodeRegularExpression(final String regExp, int relevantGroupNumber) {
         if (regExp == null) throw new NullPointerException("regExp cannot be null");
         if (relevantGroupNumber < 1) throw new IllegalArgumentException("group number cannot be < 1");
 

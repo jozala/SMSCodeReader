@@ -17,6 +17,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class SMSFilterTest {
 
     public static final String SMS_SENDER = "someSender";
+    public static final String SMS_BODY = "Some SMS Body";
 
     // SUT
     private SMSFilter smsFilter;
@@ -28,13 +29,13 @@ public class SMSFilterTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        smsFilter = new SMSFilter(sendersResource, smsCodeParser, SMS_SENDER);
+        smsFilter = new SMSFilter(sendersResource, smsCodeParser, SMS_SENDER, SMS_BODY);
     }
 
     @Test
     public void shouldRecogniseSMSAsRelevantIfSenderIsKnownAndCodeHasBeenFoundInBody() throws Exception {
         when(sendersResource.isSenderKnown(SMS_SENDER)).thenReturn(true);
-        when(smsCodeParser.checkIfBodyContainsCode()).thenReturn(true);
+        when(smsCodeParser.checkIfBodyContainsCode(SMS_BODY)).thenReturn(true);
 
         assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(), is(true));
     }
@@ -48,7 +49,7 @@ public class SMSFilterTest {
     @Test
     public void shouldRecogniseSMSAsIrrelevantIfSenderIsKnownButCodeHasNotBeenFoundInBody() throws Exception {
         when(sendersResource.isSenderKnown(SMS_SENDER)).thenReturn(true);
-        when(smsCodeParser.checkIfBodyContainsCode()).thenReturn(false);
+        when(smsCodeParser.checkIfBodyContainsCode(SMS_BODY)).thenReturn(false);
 
         assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(), is(false));
     }

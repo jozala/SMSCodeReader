@@ -6,24 +6,35 @@ import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
 import pl.aetas.android.smscode.resource.SendersResource;
 
+/**
+ * Checks if SMS is relevant from SMSCodeReader perspective
+ */
 public class SMSFilter {
 
     private final SendersResource sendersResource;
     private final SMSCodeParser smsCodeParser;
     private final String smsSenderName;
+    private final String smsBody;
 
-    public SMSFilter(final SendersResource sendersResource, final SMSCodeParser smsCodeParser, final String smsSenderName) {
+    public SMSFilter(final SendersResource sendersResource, final SMSCodeParser smsCodeParser, final String smsSenderName, final String smsBody) {
+        if (sendersResource == null) throw new NullPointerException("senderResource cannot be null");
+        if (smsCodeParser == null) throw new NullPointerException("smsCodeParser cannot be null");
+        if (smsSenderName == null) throw new NullPointerException("smsSenderName cannot be null");
+        if (smsBody == null) throw new NullPointerException("smsBody cannot be null");
+
         this.sendersResource = sendersResource;
         this.smsCodeParser = smsCodeParser;
         this.smsSenderName = smsSenderName;
+        this.smsBody = smsBody;
     }
 
     public boolean checkIfSMSIsRelevantForCodeReader() {
         if (!sendersResource.isSenderKnown(smsSenderName)) {
             return false;
         }
+
         try {
-            if (!smsCodeParser.checkIfBodyContainsCode()) {
+            if (!smsCodeParser.checkIfBodyContainsCode(smsBody)) {
                 Log.w(SMSFilter.class.getName(), "Sender is known: " + smsSenderName + ", but code has not been found in sms body");
                 return false;
             }
