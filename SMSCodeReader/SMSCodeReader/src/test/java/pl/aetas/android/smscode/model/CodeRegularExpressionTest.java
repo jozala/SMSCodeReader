@@ -31,14 +31,14 @@ public class CodeRegularExpressionTest {
     @Test
     public void shouldReturnFalseWhenGivenStringCannotBeMatchedAgainstRegularExpression() throws Exception {
         final String stringToMatch = "String which does not match against set regular expression code";
-        final boolean isMatch = codeRegularExpression.checkIfMatches(stringToMatch);
+        final boolean isMatch = codeRegularExpression.matches(stringToMatch);
         assertThat(isMatch, is(false));
     }
 
     @Test
     public void shouldReturnTrueWhenGivenStringMatchesAgainsRegularExpression() throws Exception {
         String stringToMatch = "String which does match against set regular expression with code: 123456789";
-        final boolean isMatch = codeRegularExpression.checkIfMatches(stringToMatch);
+        final boolean isMatch = codeRegularExpression.matches(stringToMatch);
         assertThat(isMatch, is(true));
     }
 }
