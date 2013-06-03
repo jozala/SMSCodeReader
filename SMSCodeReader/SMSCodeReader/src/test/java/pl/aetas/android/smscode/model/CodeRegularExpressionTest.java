@@ -5,6 +5,7 @@ import org.junit.Test;
 import pl.aetas.android.smscode.exception.CodeNotFoundException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class CodeRegularExpressionTest {
@@ -14,7 +15,7 @@ public class CodeRegularExpressionTest {
 
     @Before
     public void setUp() throws Exception {
-        codeRegularExpression = new CodeRegularExpression(".*(\\s?code: )(\\S+)(\\s?).*");
+        codeRegularExpression = new CodeRegularExpression(".*(\\s?code: )(\\S+)(\\s?).*", 2);
     }
 
     @Test
@@ -25,5 +26,19 @@ public class CodeRegularExpressionTest {
     @Test(expected = CodeNotFoundException.class)
     public void shouldThrowExceptionIfCodeNotFoundInGivenString() throws Exception {
         codeRegularExpression.getCodeFromString("String which does not contain code");
+    }
+
+    @Test
+    public void shouldReturnFalseWhenGivenStringCannotBeMatchedAgainstRegularExpression() throws Exception {
+        final String stringToMatch = "String which does not match against set regular expression code";
+        final boolean isMatch = codeRegularExpression.checkIfMatches(stringToMatch);
+        assertThat(isMatch, is(false));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenGivenStringMatchesAgainsRegularExpression() throws Exception {
+        String stringToMatch = "String which does match against set regular expression with code: 123456789";
+        final boolean isMatch = codeRegularExpression.checkIfMatches(stringToMatch);
+        assertThat(isMatch, is(true));
     }
 }

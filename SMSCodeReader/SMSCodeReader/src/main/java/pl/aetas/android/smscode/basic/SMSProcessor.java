@@ -7,9 +7,9 @@ import pl.aetas.android.smscode.analyser.SMSFilter;
 import pl.aetas.android.smscode.exception.CodeNotFoundException;
 import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
+import pl.aetas.android.smscode.model.Sender;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
-import pl.aetas.android.smscode.resource.CodesRegularExpressionsResource;
-import pl.aetas.android.smscode.resource.KnownSendersResource;
+import pl.aetas.android.smscode.resource.SendersResource;
 
 /**
  * Main class responsible for processing all incoming SMS for SMSCodeReader app
@@ -33,13 +33,13 @@ public class SMSProcessor {
         this.smsCodeParser = smsCodeParser;
     }
 
-    public static SMSProcessor getInstance(final Context context, final String sender, final String smsBody) {
-        CodesRegularExpressionsResource codesRegularExpressionsResource = new CodesRegularExpressionsResource(sender);
-        SMSCodeParser smsCodeParser = new SMSCodeParser(codesRegularExpressionsResource);
-        KnownSendersResource knownSendersResource = new KnownSendersResource();
-        SMSFilter smsFilter = new SMSFilter(knownSendersResource, smsCodeParser, sender);
+    public static SMSProcessor getInstance(final Context context, final String senderName, final String smsBody) {
+        SendersResource sendersResource = new SendersResource();
+        Sender sender = sendersResource.getSender(senderName);
+        SMSCodeParser smsCodeParser = new SMSCodeParser(sender);
+        SMSFilter smsFilter = new SMSFilter(sendersResource, smsCodeParser, senderName);
         Clipboard clipboard = new Clipboard((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
-        SMSInfoPresenter smsInfoPresenter = new SMSInfoPresenter(sender, smsBody);
+        SMSInfoPresenter smsInfoPresenter = new SMSInfoPresenter(senderName, smsBody);
         return new SMSProcessor(smsFilter, clipboard, smsCodeParser, smsInfoPresenter);
     }
 

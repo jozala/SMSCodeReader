@@ -4,27 +4,27 @@ import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
-import pl.aetas.android.smscode.resource.KnownSendersResource;
+import pl.aetas.android.smscode.resource.SendersResource;
 
 public class SMSFilter {
 
-    private final KnownSendersResource knownSendersResource;
+    private final SendersResource sendersResource;
     private final SMSCodeParser smsCodeParser;
-    private final String smsSender;
+    private final String smsSenderName;
 
-    public SMSFilter(final KnownSendersResource knownSendersResource, final SMSCodeParser smsCodeParser, final String smsSender) {
-        this.knownSendersResource = knownSendersResource;
+    public SMSFilter(final SendersResource sendersResource, final SMSCodeParser smsCodeParser, final String smsSenderName) {
+        this.sendersResource = sendersResource;
         this.smsCodeParser = smsCodeParser;
-        this.smsSender = smsSender;
+        this.smsSenderName = smsSenderName;
     }
 
     public boolean checkIfSMSIsRelevantForCodeReader() {
-        if (!knownSendersResource.isSenderKnown(smsSender)) {
+        if (!sendersResource.isSenderKnown(smsSenderName)) {
             return false;
         }
         try {
             if (!smsCodeParser.checkIfBodyContainsCode()) {
-                Log.w(SMSFilter.class.getName(), "Sender is known: " + smsSender + ", but code has not been found in sms body");
+                Log.w(SMSFilter.class.getName(), "Sender is known: " + smsSenderName + ", but code has not been found in sms body");
                 return false;
             }
         } catch (UnknownSenderException e) {

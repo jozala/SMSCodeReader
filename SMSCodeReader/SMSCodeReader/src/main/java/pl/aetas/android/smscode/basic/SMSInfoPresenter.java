@@ -10,6 +10,7 @@ public class SMSInfoPresenter {
     }
 
     public void presentInfoToUserIfChosen(String code) {
+        // TODO to be implemented
         throw new IllegalAccessError("Not implemented");
     }
 }

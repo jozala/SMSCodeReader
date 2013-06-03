@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import pl.aetas.android.smscode.model.CodeRegularExpression;
 import pl.aetas.android.smscode.model.CodesRegularExpressions;
-import pl.aetas.android.smscode.resource.CodesRegularExpressionsResource;
+import pl.aetas.android.smscode.model.Sender;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -20,7 +20,7 @@ public class SMSCodeParserTest {
     private SMSCodeParser smsCodeParser;
 
     @Mock
-    private CodesRegularExpressionsResource codesRegularExpressionsResource;
+    private Sender sender;
     @Mock
     private CodesRegularExpressions codesRegularExpressions;
     @Mock
@@ -29,13 +29,13 @@ public class SMSCodeParserTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        smsCodeParser = new SMSCodeParser(codesRegularExpressionsResource);
+        smsCodeParser = new SMSCodeParser(sender);
 
     }
 
     @Test
     public void shouldRetrieveCodeUsingRegularExpressionFromResource() throws Exception {
-        when(codesRegularExpressionsResource.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
+        when(sender.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
         when(codesRegularExpressions.getMatchingRegularExpression()).thenReturn(codeRegularExpression);
         String smsBody = "This is body of the SMS with some code";
         when(codeRegularExpression.getCodeFromString(smsBody)).thenReturn("147852");
@@ -45,7 +45,7 @@ public class SMSCodeParserTest {
 
     @Test
     public void shouldReturnTrueIfBodyContainsCode() throws Exception {
-        when(codesRegularExpressionsResource.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
+        when(sender.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
         when(codesRegularExpressions.checkIfBodyContainsCode()).thenReturn(true);
         boolean containsCode = smsCodeParser.checkIfBodyContainsCode();
         assertThat(containsCode, is(true));
@@ -53,7 +53,7 @@ public class SMSCodeParserTest {
 
     @Test
     public void shouldReturnFalseIfBodyDoesNotContainsCode() throws Exception {
-        when(codesRegularExpressionsResource.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
+        when(sender.getCodesRegularExpressions()).thenReturn(codesRegularExpressions);
         when(codesRegularExpressions.checkIfBodyContainsCode()).thenReturn(false);
 
         boolean containsCode = smsCodeParser.checkIfBodyContainsCode();
