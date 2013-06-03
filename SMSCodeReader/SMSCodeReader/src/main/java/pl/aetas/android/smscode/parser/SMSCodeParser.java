@@ -7,7 +7,7 @@ import pl.aetas.android.smscode.model.CodesRegularExpressions;
 import pl.aetas.android.smscode.resource.CodesRegularExpressionsResource;
 
 /**
- * Parse SMS body and obtain relevant information
+ * Retrieves SMS code from SMS body
  */
 public class SMSCodeParser {
 
@@ -18,13 +18,13 @@ public class SMSCodeParser {
     }
 
     public String retrieveCodeFromSMSBodyForKnownSender() throws UnknownSenderException, NoCodesForKnownSenderException {
-        CodesRegularExpressions codesRegularExpressions = codesRegularExpressionsResource.getCodesRegularExpressionsForSender();
+        CodesRegularExpressions codesRegularExpressions = codesRegularExpressionsResource.getCodesRegularExpressions();
         CodeRegularExpression codeRegularExpression = codesRegularExpressions.getMatchingRegularExpression();
         return codeRegularExpression.getCodeFromString();
     }
 
     public boolean checkIfBodyContainsCode() throws UnknownSenderException, NoCodesForKnownSenderException {
-        CodesRegularExpressions regularExpressionsForSender = codesRegularExpressionsResource.getCodesRegularExpressionsForSender();
+        CodesRegularExpressions regularExpressionsForSender = codesRegularExpressionsResource.getCodesRegularExpressions();
         return regularExpressionsForSender.checkIfBodyContainsCode();
     }
 }

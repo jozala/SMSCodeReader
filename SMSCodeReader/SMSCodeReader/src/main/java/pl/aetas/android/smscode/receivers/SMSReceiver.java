@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import pl.aetas.android.smscode.basic.SMSReader;
+import pl.aetas.android.smscode.basic.SMSProcessor;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -25,8 +25,8 @@ public class SMSReceiver extends BroadcastReceiver {
                 String body = sms.getMessageBody();
                 String address = sms.getOriginatingAddress();
 
-                SMSReader smsReader = SMSReader.getInstance(context, address, body);
-                smsReader.readSMS(address, body);
+                SMSProcessor smsProcessor = SMSProcessor.getInstance(context, address, body);
+                smsProcessor.readSMS();
 
             }
 

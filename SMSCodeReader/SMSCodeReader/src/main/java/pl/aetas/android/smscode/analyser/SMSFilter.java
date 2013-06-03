@@ -11,29 +11,27 @@ public class SMSFilter {
     private final KnownSendersResource knownSendersResource;
     private final SMSCodeParser smsCodeParser;
     private final String smsSender;
-    private final String smsBody;
 
-    public SMSFilter(final KnownSendersResource knownSendersResource, final SMSCodeParser smsCodeParser, final String smsSender, final String smsBody) {
+    public SMSFilter(final KnownSendersResource knownSendersResource, final SMSCodeParser smsCodeParser, final String smsSender) {
         this.knownSendersResource = knownSendersResource;
         this.smsCodeParser = smsCodeParser;
         this.smsSender = smsSender;
-        this.smsBody = smsBody;
     }
 
-    public boolean checkIfSMSIsRelevantForCodeReader(final String smsSender) {
+    public boolean checkIfSMSIsRelevantForCodeReader() {
         if (!knownSendersResource.isSenderKnown(smsSender)) {
             return false;
         }
         try {
             if (!smsCodeParser.checkIfBodyContainsCode()) {
-                Log.w(SMSFilter.class.getName(), "Sender is known: " + smsSender + ", but code has not been found in sms body: " + smsBody);
+                Log.w(SMSFilter.class.getName(), "Sender is known: " + smsSender + ", but code has not been found in sms body");
                 return false;
             }
         } catch (UnknownSenderException e) {
-            Log.e(SMSFilter.class.getName(), "Sender " + smsSender + " should be known (it has been checked earlier, but it fails later)", e);
+            Log.e(SMSFilter.class.getName(), "Sender should be known (it has been checked earlier)", e);
             throw new RuntimeException(e);
         } catch (NoCodesForKnownSenderException e) {
-            Log.e(SMSFilter.class.getName(), "Sender " + smsSender + " is known, but has no codes attached", e);
+            Log.e(SMSFilter.class.getName(), "Sender is known, but has no codes attached", e);
             throw new RuntimeException(e);
         }
 

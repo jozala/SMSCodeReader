@@ -33,7 +33,7 @@ public class SMSFilterTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        smsFilter = new SMSFilter(knownSendersResource, smsCodeParser, SMS_SENDER, SMS_BODY);
+        smsFilter = new SMSFilter(knownSendersResource, smsCodeParser, SMS_SENDER);
     }
 
     @Test
@@ -41,20 +41,20 @@ public class SMSFilterTest {
         when(knownSendersResource.isSenderKnown(SMS_SENDER)).thenReturn(true);
         when(smsCodeParser.checkIfBodyContainsCode()).thenReturn(true);
 
-        assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(SMS_SENDER), is(true));
+        assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(), is(true));
     }
 
     @Test
     public void shouldRecogniseSMSAsIrrelevantIfSenderIsUnknown() throws Exception {
         when(knownSendersResource.isSenderKnown(SMS_SENDER)).thenReturn(false);
-        assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(SMS_SENDER), is(false));
+        assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(), is(false));
     }
 
     @Test
-    public void shouldRecoginseSMSAsIrrelevantIfSenderIsKnownButCodeHosNotBeenFoundInBody() throws Exception {
+    public void shouldRecogniseSMSAsIrrelevantIfSenderIsKnownButCodeHosNotBeenFoundInBody() throws Exception {
         when(knownSendersResource.isSenderKnown(SMS_SENDER)).thenReturn(true);
         when(smsCodeParser.checkIfBodyContainsCode()).thenReturn(false);
 
-        assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(SMS_SENDER), is(false));
+        assertThat(smsFilter.checkIfSMSIsRelevantForCodeReader(), is(false));
     }
 }

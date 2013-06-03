@@ -12,7 +12,7 @@ public class CodesRegularExpressionsResource {
         this.sender = sender;
     }
 
-    public CodesRegularExpressions getCodesRegularExpressionsForSender() throws UnknownSenderException, NoCodesForKnownSenderException {
+    public CodesRegularExpressions getCodesRegularExpressions() throws UnknownSenderException, NoCodesForKnownSenderException {
         throw new IllegalAccessError("Not implemented");
     }
 }
