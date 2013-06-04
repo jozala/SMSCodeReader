@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.basic.SMSProcessor;
+import pl.aetas.android.smscode.basic.SMSProcessorFactory;
+import pl.aetas.android.smscode.exception.UnknownSenderException;
+import pl.aetas.android.smscode.resource.SendersResource;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -22,12 +26,21 @@ public class SMSReceiver extends BroadcastReceiver {
             for (final Object aSmsExtra : smsExtra) {
                 SmsMessage sms = SmsMessage.createFromPdu((byte[]) aSmsExtra);
 
-                String body = sms.getMessageBody();
-                String address = sms.getOriginatingAddress();
+                final String body = sms.getMessageBody();
+                final String address = sms.getOriginatingAddress();
 
-                SMSProcessor smsProcessor = SMSProcessor.getInstance(context, address, body);
-                smsProcessor.processSMS(body);
-
+                SendersResource sendersResource = SendersResource.getInstance();
+                if (!sendersResource.isSenderKnown(address)) {
+                    return;
+                }
+                SMSProcessorFactory smsProcessorFactory = SMSProcessorFactory.getInstance();
+                try {
+                    SMSProcessor smsProcessor = smsProcessorFactory.create(context, address, body);
+                    smsProcessor.processSMS(body);
+                } catch (UnknownSenderException e) {
+                    Log.e(SMSReceiver.class.getName(), "Sender should be known (it has been checked earlier)", e);
+                    throw new RuntimeException(e);
+                }
             }
 
         }

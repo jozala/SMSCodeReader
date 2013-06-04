@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
-import pl.aetas.android.smscode.analyser.SMSFilter;
 import pl.aetas.android.smscode.basic.Clipboard;
 import pl.aetas.android.smscode.basic.SMSInfoPresenter;
 import pl.aetas.android.smscode.basic.SMSProcessor;
@@ -25,9 +24,6 @@ public class SMSProcessorTest {
     private Clipboard clipboard;
 
     @Mock
-    private SMSFilter smsFilter;
-
-    @Mock
     private SMSInfoPresenter smsInfoPresenter;
 
     @Mock
@@ -36,13 +32,13 @@ public class SMSProcessorTest {
     @Before
     public void setUp() {
         initMocks(this);
-        smsProcessor = new SMSProcessor(smsFilter, clipboard, smsCodeParser, smsInfoPresenter);
+        smsProcessor = new SMSProcessor(clipboard, smsCodeParser, smsInfoPresenter);
     }
 
     @Test
     public void shouldCopyCodeToClipboardFromSMSWhichIsSMSWithCode() throws Exception {
-        when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(true);
-        when(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(SMS_BODY)).thenReturn("123456");
+        when(smsCodeParser.checkIfBodyContainsCode(SMS_BODY)).thenReturn(true);
+        when(smsCodeParser.retrieveCodeFromSMSBody(SMS_BODY)).thenReturn("123456");
 
         smsProcessor.processSMS(SMS_BODY);
         verify(clipboard).save("123456");
@@ -50,7 +46,7 @@ public class SMSProcessorTest {
 
     @Test
     public void shouldNotTryToCopyCodeToClipboardFromSMSWhichIsNotSMSWithCode() throws Exception {
-        when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(false);
+        when(smsCodeParser.checkIfBodyContainsCode(SMS_BODY)).thenReturn(false);
 
         smsProcessor.processSMS(SMS_BODY);
         verify(clipboard, never()).save(anyString());
@@ -58,8 +54,8 @@ public class SMSProcessorTest {
 
     @Test
     public void shouldPresentInfoToUserWhenSMSIsSMSWithCode() throws Exception {
-        when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(true);
-        when(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(SMS_BODY)).thenReturn("123456");
+        when(smsCodeParser.checkIfBodyContainsCode(SMS_BODY)).thenReturn(true);
+        when(smsCodeParser.retrieveCodeFromSMSBody(SMS_BODY)).thenReturn("123456");
 
         smsProcessor.processSMS(SMS_BODY);
 
@@ -68,8 +64,7 @@ public class SMSProcessorTest {
 
     @Test
     public void shouldNotTryToPresentInfoToUserWhenSMSInNotSMSWithCode() throws Exception {
-        when(smsFilter.checkIfSMSIsRelevantForCodeReader()).thenReturn(false);
-
+        when(smsCodeParser.checkIfBodyContainsCode(SMS_BODY)).thenReturn(false);
         smsProcessor.processSMS(SMS_BODY);
         verify(smsInfoPresenter, never()).presentInfoToUserIfChosen(anyString());
     }

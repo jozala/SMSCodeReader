@@ -1,8 +1,5 @@
 package pl.aetas.android.smscode.model;
 
-import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
-import pl.aetas.android.smscode.exception.UnknownSenderException;
-
 public class Sender {
 
     private final String senderName;
@@ -27,7 +24,7 @@ public class Sender {
         return officialName;
     }
 
-    public CodesRegularExpressions getCodesRegularExpressions() throws UnknownSenderException, NoCodesForKnownSenderException {
+    public CodesRegularExpressions getCodesRegularExpressions() {
         return codesRegularExpressions;
     }
 }

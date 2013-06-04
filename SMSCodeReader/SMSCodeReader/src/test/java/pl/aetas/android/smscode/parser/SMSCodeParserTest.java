@@ -40,7 +40,7 @@ public class SMSCodeParserTest {
         when(codesRegularExpressions.getMatchingRegularExpression(SMS_BODY)).thenReturn(codeRegularExpression);
         when(codeRegularExpression.getCodeFromString(SMS_BODY)).thenReturn("147852");
 
-        assertThat(smsCodeParser.retrieveCodeFromSMSBodyForKnownSender(SMS_BODY), equalTo("147852"));
+        assertThat(smsCodeParser.retrieveCodeFromSMSBody(SMS_BODY), equalTo("147852"));
     }
 
     @Test

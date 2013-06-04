@@ -15,16 +15,18 @@ public class SMSCodeParser {
     private final Sender sender;
 
     public SMSCodeParser(final Sender sender) {
+        if (sender == null) throw new NullPointerException("sender cannot be null");
+
         this.sender = sender;
     }
 
-    public String retrieveCodeFromSMSBodyForKnownSender(String smsBody) throws UnknownSenderException, NoCodesForKnownSenderException, CodeNotFoundException {
+    public String retrieveCodeFromSMSBody(String smsBody) throws UnknownSenderException, NoCodesForKnownSenderException, CodeNotFoundException {
         CodesRegularExpressions codesRegularExpressions = sender.getCodesRegularExpressions();
         CodeRegularExpression codeRegularExpression = codesRegularExpressions.getMatchingRegularExpression(smsBody);
         return codeRegularExpression.getCodeFromString(smsBody);
     }
 
-    public boolean checkIfBodyContainsCode(String smsBody) throws UnknownSenderException, NoCodesForKnownSenderException {
+    public boolean checkIfBodyContainsCode(String smsBody) {
         CodesRegularExpressions regularExpressionsForSender = sender.getCodesRegularExpressions();
         return regularExpressionsForSender.checkIfBodyContainsCode(smsBody);
     }
