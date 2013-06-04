@@ -2,8 +2,6 @@ package pl.aetas.android.smscode.basic;
 
 import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.exception.CodeNotFoundException;
-import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
-import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
 
 /**
@@ -38,12 +36,6 @@ public class SMSProcessor {
             String code = smsCodeParser.retrieveCodeFromSMSBody(smsBody);
             clipboard.save(code);
             smsInfoPresenter.presentInfoToUserIfChosen(code);
-        } catch (UnknownSenderException e) {
-            Log.e(SMSProcessor.class.getName(), "Sender should be known (it has been checked earlier)", e);
-            throw new RuntimeException(e);
-        } catch (NoCodesForKnownSenderException e) {
-            Log.e(SMSProcessor.class.getName(), "Sender is known, but has no codes attached", e);
-            throw new RuntimeException(e);
         } catch (CodeNotFoundException e) {
             Log.e(SMSProcessor.class.getName(), "SMS is relevant for code reader, but code has not been found in message body", e);
             throw new RuntimeException(e);

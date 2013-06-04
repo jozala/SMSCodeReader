@@ -1,33 +1,28 @@
 package pl.aetas.android.smscode.parser;
 
 import pl.aetas.android.smscode.exception.CodeNotFoundException;
-import pl.aetas.android.smscode.exception.NoCodesForKnownSenderException;
-import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.model.CodeRegularExpression;
 import pl.aetas.android.smscode.model.CodesRegularExpressions;
-import pl.aetas.android.smscode.model.Sender;
 
 /**
- * Retrieves SMS code from SMS body
+ * Retrieves information from SMS body
  */
 public class SMSCodeParser {
 
-    private final Sender sender;
 
-    public SMSCodeParser(final Sender sender) {
-        if (sender == null) throw new NullPointerException("sender cannot be null");
+    private final CodesRegularExpressions codesRegularExpressions;
 
-        this.sender = sender;
+    public SMSCodeParser(final CodesRegularExpressions codesRegularExpressions) {
+        if (codesRegularExpressions == null) throw new NullPointerException("codesRegularExpressions cannot be null");
+        this.codesRegularExpressions = codesRegularExpressions;
     }
 
-    public String retrieveCodeFromSMSBody(String smsBody) throws UnknownSenderException, NoCodesForKnownSenderException, CodeNotFoundException {
-        CodesRegularExpressions codesRegularExpressions = sender.getCodesRegularExpressions();
+    public String retrieveCodeFromSMSBody(String smsBody) throws CodeNotFoundException {
         CodeRegularExpression codeRegularExpression = codesRegularExpressions.getMatchingRegularExpression(smsBody);
         return codeRegularExpression.getCodeFromString(smsBody);
     }
 
     public boolean checkIfBodyContainsCode(String smsBody) {
-        CodesRegularExpressions regularExpressionsForSender = sender.getCodesRegularExpressions();
-        return regularExpressionsForSender.checkIfBodyContainsCode(smsBody);
+        return codesRegularExpressions.checkIfBodyContainsCode(smsBody);
     }
 }

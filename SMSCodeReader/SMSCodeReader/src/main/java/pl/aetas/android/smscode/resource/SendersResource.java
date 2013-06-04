@@ -8,14 +8,17 @@ import pl.aetas.android.smscode.model.Sender;
  */
 public class SendersResource {
     public boolean isSenderKnown(final String senderName) {
+        // TODO to be implemented by invoking DAO methods
         throw new IllegalAccessError("Not implemented");
     }
 
     public Sender getSender(final String senderName) throws UnknownSenderException {
+        // TODO to be implemented by invoking DAO methods
         throw new IllegalAccessError("Not implemented");
     }
 
     public static SendersResource getInstance() {
+        // TODO change this implementation to get singleton
         return new SendersResource();
     }
 }
