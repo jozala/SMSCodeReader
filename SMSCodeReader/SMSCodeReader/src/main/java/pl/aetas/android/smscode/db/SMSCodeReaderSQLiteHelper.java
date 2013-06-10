@@ -14,25 +14,20 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_REGEXP_SENDER_NAME = "sender_name";
     public static final String COL_REGEXP_EXPRESSION = "expression";
     public static final String COL_REGEXP_RELEVANT_GROUP_NUMBER = "relevant_group_number";
-    public static final String TABLE_SMS_TYPES = "sms_types";
-    public static final String COL_SMS_TYPES_NAME = "name";
 
 
     private static final String DATABASE_NAME = "smscodereader.db";
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_DATABASE = "CREATE TABLE senders\n" +
             "    name TEXT PRIMARY KEY,\n" +
-            "    official_name TEXT NOT NULL\n" +
+            "    official_name TEXT NOT NULL;\n" +
             "    \n" +
             "CREATE TABLE regular_expressions\n" +
             "    FOREIGN KEY (sender_name) REFERENCES sender(name) NOT NULL,\n" +
             "    FOREIGN KEY (type_name) REFERENCES sms_types(name) NOT NULL,\n" +
             "    expression TEXT NOT NULL,\n" +
             "    relevant_group_number INTEGER NOT NULL,\n" +
-            "    PRIMARY KEY (sender_name, type)\n" +
-            "    \n" +
-            "CREATE TABLE sms_types\n" +
-            "    name TEXT PRIMARY KEY";
+            "    PRIMARY KEY (sender_name, type);";
 
     public SMSCodeReaderSQLiteHelper(final Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -48,7 +43,6 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         Log.w(SMSCodeReaderSQLiteHelper.class, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data.");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENDERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGULAR_EXPRESSIONS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SMS_TYPES);
         onCreate(db);
     }
 }

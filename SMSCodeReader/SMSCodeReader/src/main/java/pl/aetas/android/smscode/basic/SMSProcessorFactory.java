@@ -18,8 +18,8 @@ public final class SMSProcessorFactory {
     }
 
 
-    public SMSProcessor create(final Context context, final String senderName, final String smsBody) throws UnknownSenderException {
-        final Sender sender = retrieveSender(senderName);
+    public SMSProcessor create(final Context context, final SendersResource sendersResource, final String senderName, final String smsBody) throws UnknownSenderException {
+        final Sender sender = retrieveSender(sendersResource, senderName);
         final SMSCodeParser smsCodeParser = createSMSCodeParser(sender.getCodesRegularExpressions());
         final Clipboard clipboard = createClipboard(context);
         final SMSInfoPresenter smsInfoPresenter = createSMSInfoPresenter(sender, smsBody);
@@ -38,8 +38,7 @@ public final class SMSProcessorFactory {
         return new SMSCodeParser(codesRegularExpressions);
     }
 
-    private Sender retrieveSender(final String senderName) throws UnknownSenderException {
-        final SendersResource sendersResource = SendersResource.getInstance();
+    private Sender retrieveSender(final SendersResource sendersResource, final String senderName) throws UnknownSenderException {
         return sendersResource.getSenderByName(senderName);
     }
 }

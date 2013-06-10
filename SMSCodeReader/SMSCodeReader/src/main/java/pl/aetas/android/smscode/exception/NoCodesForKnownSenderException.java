@@ -1,6 +1,6 @@
 package pl.aetas.android.smscode.exception;
 
-public class NoCodesForKnownSenderException extends Exception {
+public class NoCodesForKnownSenderException extends RuntimeException {
     public NoCodesForKnownSenderException(final String message) {
         super(message);
     }

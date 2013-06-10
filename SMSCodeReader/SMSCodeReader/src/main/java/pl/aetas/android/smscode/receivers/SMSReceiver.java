@@ -8,6 +8,7 @@ import android.telephony.SmsMessage;
 import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.basic.SMSProcessor;
 import pl.aetas.android.smscode.basic.SMSProcessorFactory;
+import pl.aetas.android.smscode.db.SMSCodeReaderSQLiteHelper;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.resource.SendersResource;
 
@@ -29,13 +30,13 @@ public class SMSReceiver extends BroadcastReceiver {
                 final String body = sms.getMessageBody();
                 final String address = sms.getOriginatingAddress();
 
-                SendersResource sendersResource = SendersResource.getInstance();
+                SendersResource sendersResource = new SendersResource(new SMSCodeReaderSQLiteHelper(context));
                 if (!sendersResource.isSenderKnown(address)) {
                     return;
                 }
                 SMSProcessorFactory smsProcessorFactory = SMSProcessorFactory.getInstance();
                 try {
-                    SMSProcessor smsProcessor = smsProcessorFactory.create(context, address, body);
+                    SMSProcessor smsProcessor = smsProcessorFactory.create(context, sendersResource, address, body);
                     smsProcessor.processSMS(body);
                 } catch (UnknownSenderException e) {
                     Log.e(SMSReceiver.class.getName(), "Sender should be known (it has been checked earlier)", e);
