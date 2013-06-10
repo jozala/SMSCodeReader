@@ -9,7 +9,6 @@ import pl.aetas.android.smscode.model.CodesRegularExpressions;
  */
 public class SMSCodeParser {
 
-
     private final CodesRegularExpressions codesRegularExpressions;
 
     public SMSCodeParser(final CodesRegularExpressions codesRegularExpressions) {

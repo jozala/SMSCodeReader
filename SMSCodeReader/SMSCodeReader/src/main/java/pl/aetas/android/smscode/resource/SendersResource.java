@@ -12,7 +12,7 @@ public class SendersResource {
         throw new IllegalAccessError("Not implemented");
     }
 
-    public Sender getSender(final String senderName) throws UnknownSenderException {
+    public Sender getSenderByName(final String senderName) throws UnknownSenderException {
         // TODO to be implemented by invoking DAO methods
         throw new IllegalAccessError("Not implemented");
     }
