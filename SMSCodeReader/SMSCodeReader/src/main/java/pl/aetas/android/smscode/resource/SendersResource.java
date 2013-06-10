@@ -87,10 +87,11 @@ public class SendersResource {
         final int regexpExpressionColumnIndex = regularExpressionsCursor.getColumnIndexOrThrow(COL_REGEXP_EXPRESSION);
 
         Set<CodeRegularExpression> codesRegularExpressionSet = new HashSet<CodeRegularExpression>(regularExpressionsCursor.getCount());
-        while (regularExpressionsCursor.isAfterLast()) {
+        while (!regularExpressionsCursor.isAfterLast()) {
             final String expression = regularExpressionsCursor.getString(regexpExpressionColumnIndex);
             final int relevantGroup = regularExpressionsCursor.getInt(regexpRelevantGroupNumberColumnIndex);
             codesRegularExpressionSet.add(new CodeRegularExpression(expression, relevantGroup));
+            regularExpressionsCursor.moveToNext();
         }
 
         return new CodesRegularExpressions(codesRegularExpressionSet);

@@ -18,24 +18,41 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "smscodereader.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String CREATE_DATABASE = "CREATE TABLE senders\n" +
-            "    name TEXT PRIMARY KEY,\n" +
-            "    official_name TEXT NOT NULL;\n" +
-            "    \n" +
-            "CREATE TABLE regular_expressions\n" +
-            "    FOREIGN KEY (sender_name) REFERENCES sender(name) NOT NULL,\n" +
-            "    FOREIGN KEY (type_name) REFERENCES sms_types(name) NOT NULL,\n" +
-            "    expression TEXT NOT NULL,\n" +
-            "    relevant_group_number INTEGER NOT NULL,\n" +
-            "    PRIMARY KEY (sender_name, type);";
+    private static final String CREATE_TABLE_SENDERS = "CREATE TABLE senders (" +
+            "    name TEXT PRIMARY KEY," +
+            "    official_name TEXT NOT NULL" +
+            ");";
+
+    private static final String CREATE_TABLE_REGEXP = "CREATE TABLE regular_expressions (" +
+            "    sender_name TEXT NOT NULL," +
+            "    type TEXT NOT NULL," +
+            "    expression TEXT NOT NULL," +
+            "    relevant_group_number INTEGER NOT NULL," +
+            "    PRIMARY KEY (sender_name, type)," +
+            "    FOREIGN KEY (sender_name) REFERENCES sender(name)" +
+            ");";
+
+    private final Context context;
 
     public SMSCodeReaderSQLiteHelper(final Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        db.execSQL(CREATE_DATABASE);
+        Log.i(SMSCodeReaderSQLiteHelper.class, "Creating database with SMS Codes");
+        db.execSQL(CREATE_TABLE_SENDERS);
+        db.execSQL(CREATE_TABLE_REGEXP);
+        copyDataToDatabase(db);
+    }
+
+    private void copyDataToDatabase(final SQLiteDatabase db) {
+        // TODO load data from resource files and put them to tables senders and regular_expressions
+        final String insertMBankSender = "INSERT INTO senders VALUES(3388,'mBank');";
+        final String insertMBankRegExp = "INSERT INTO regular_expressions VALUES(3388,'transfer','.*(\\s?haslo: )(\\S+)(\\s?).*',2);";
+        db.execSQL(insertMBankSender);
+        db.execSQL(insertMBankRegExp);
     }
 
     @Override
