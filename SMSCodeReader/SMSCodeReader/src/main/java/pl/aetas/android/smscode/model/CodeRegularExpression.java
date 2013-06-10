@@ -17,7 +17,7 @@ public class CodeRegularExpression {
         pattern = Pattern.compile(regExp);
     }
 
-    public String getCodeFromString(String stringToParse) throws CodeNotFoundException {
+    public String getCodeFromString(CharSequence stringToParse) throws CodeNotFoundException {
         final Matcher matcher = pattern.matcher(stringToParse);
         final boolean matches = matcher.matches();
         if (!matches) {
@@ -27,7 +27,7 @@ public class CodeRegularExpression {
         return matcher.group(relevantGroupNumber);
     }
 
-    boolean matches(final String stringToMatch) {
+    boolean matches(final CharSequence stringToMatch) {
         final Matcher matcher = pattern.matcher(stringToMatch);
         return matcher.matches();
     }
