@@ -1,0 +1,35 @@
+[
+    {
+        "country" : "PL"
+        "senders" : {
+            [
+                {
+                    "name": "3388",
+                    "official_name": "mBank",
+                    "regular_expressions": {
+                        [
+                            {
+                                "type" : "general",
+                                "expression" : ".*(\s?haslo: )(\S+)(\s?).*",
+                                "relevant_group_number" : 2
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "3388",
+                    "official_name": "mBank",
+                    "regular_expressions": {
+                        [
+                            {
+                                "type" : "general",
+                                "expression" : ".*(\s?haslo: )(\S+)(\s?).*",
+                                "relevant_group_number" : 2
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+]
