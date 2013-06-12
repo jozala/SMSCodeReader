@@ -1,13 +1,10 @@
-package smscode.basic;
+package pl.aetas.android.smscode.basic;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
-import pl.aetas.android.smscode.basic.Clipboard;
-import pl.aetas.android.smscode.basic.SMSInfoPresenter;
-import pl.aetas.android.smscode.basic.SMSProcessor;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
 
 import static org.mockito.Mockito.*;

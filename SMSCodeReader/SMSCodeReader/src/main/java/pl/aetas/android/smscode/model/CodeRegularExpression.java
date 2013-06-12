@@ -14,7 +14,7 @@ public class CodeRegularExpression {
         if (relevantGroupNumber < 1) throw new IllegalArgumentException("group number cannot be < 1");
 
         this.relevantGroupNumber = relevantGroupNumber;
-        pattern = Pattern.compile(regExp);
+        pattern = Pattern.compile(regExp, Pattern.DOTALL | Pattern.MULTILINE);
     }
 
     public String getCodeFromString(CharSequence stringToParse) throws CodeNotFoundException {

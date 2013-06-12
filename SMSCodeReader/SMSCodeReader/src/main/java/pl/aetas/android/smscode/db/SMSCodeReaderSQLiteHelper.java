@@ -14,15 +14,12 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_REGEXP_SENDER_NAME = "sender_name";
     public static final String COL_REGEXP_EXPRESSION = "expression";
     public static final String COL_REGEXP_RELEVANT_GROUP_NUMBER = "relevant_group_number";
-
-
     private static final String DATABASE_NAME = "smscodereader.db";
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_TABLE_SENDERS = "CREATE TABLE senders (" +
             "    name TEXT PRIMARY KEY," +
             "    official_name TEXT NOT NULL" +
             ");";
-
     private static final String CREATE_TABLE_REGEXP = "CREATE TABLE regular_expressions (" +
             "    sender_name TEXT NOT NULL," +
             "    type TEXT NOT NULL," +
@@ -31,7 +28,6 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
             "    PRIMARY KEY (sender_name, type)," +
             "    FOREIGN KEY (sender_name) REFERENCES sender(name)" +
             ");";
-
     private final Context context;
 
     public SMSCodeReaderSQLiteHelper(final Context context) {
@@ -47,19 +43,104 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         copyDataToDatabase(db);
     }
 
-    private void copyDataToDatabase(final SQLiteDatabase db) {
-        // TODO load data from resource files and put them to tables senders and regular_expressions
-        final String insertMBankSender = "INSERT INTO senders VALUES(3388,'mBank');";
-        final String insertMBankRegExp = "INSERT INTO regular_expressions VALUES(3388,'transfer','.*(\\s?haslo: )(\\S+)(\\s?).*',2);";
-        db.execSQL(insertMBankSender);
-        db.execSQL(insertMBankRegExp);
-    }
-
     @Override
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         Log.w(SMSCodeReaderSQLiteHelper.class, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data.");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENDERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGULAR_EXPRESSIONS);
         onCreate(db);
+    }
+
+
+    private void copyDataToDatabase(final SQLiteDatabase db) {
+        // TODO load data from resource files and put them to tables senders and regular_expressions
+        final String insertMBankSender = "INSERT INTO senders VALUES('3388','mBank');";
+        final String insertMBankRegExp = "INSERT INTO regular_expressions VALUES('3388','general','.*(haslo: )(\\d{8})(\\s?).*',2);";
+        db.execSQL(insertMBankSender);
+        db.execSQL(insertMBankRegExp);
+
+        final String insertAliorBankSender = "INSERT INTO senders VALUES('Alior Bank','Alior Bank');";
+        final String insertAliorBankRegExp = "INSERT INTO regular_expressions VALUES('Alior Bank','general','.*(\\s?)(\\d{6})$',2);";
+        db.execSQL(insertAliorBankSender);
+        db.execSQL(insertAliorBankRegExp);
+
+        final String insertAliorSyncSender = "INSERT INTO senders VALUES('Alior Sync','Alior Sync');";
+        final String insertAliorSyncRegExp = "INSERT INTO regular_expressions VALUES('Alior Sync','general','.*(\\s?)(\\d{6})$',2);";
+        db.execSQL(insertAliorSyncSender);
+        db.execSQL(insertAliorSyncRegExp);
+
+        final String insertBzwbkSender = "INSERT INTO senders VALUES('BZWBK24','BZWBK24');";
+        final String insertBzwbkRegExp = "INSERT INTO regular_expressions VALUES('BZWBK24','general','^(smsKod: )(\\d{8})(\\s?).*',2);";
+        db.execSQL(insertBzwbkSender);
+        db.execSQL(insertBzwbkRegExp);
+
+        final String insertIPKOSender = "INSERT INTO senders VALUES('PKOBP','iPKO');";
+        final String insertIPKORegExp = "INSERT INTO regular_expressions VALUES('PKOBP','general','.*(\\s?)(\\d{6})$',2);";
+        db.execSQL(insertIPKOSender);
+        db.execSQL(insertIPKORegExp);
+
+        final String insertIPKO2Sender = "INSERT INTO senders VALUES('PKO BP','iPKO');";
+        final String insertIPKO2RegExp = "INSERT INTO regular_expressions VALUES('PKO BP','general','.*(\\s?)(\\d{6})$',2);";
+        db.execSQL(insertIPKO2Sender);
+        db.execSQL(insertIPKO2RegExp);
+
+        final String insertIngSender = "INSERT INTO senders VALUES('ING','ING');";
+        final String insertIngSyncRegExp = "INSERT INTO regular_expressions VALUES('ING','general','.*(\\s?to: )(\\S+)(\\s?).*',2);";
+        db.execSQL(insertIngSender);
+        db.execSQL(insertIngSyncRegExp);
+
+        final String insertInteligoSender = "INSERT INTO senders VALUES('Inteligo','Inteligo');";
+        final String insertInteligoRegExp = "INSERT INTO regular_expressions VALUES('Inteligo','general','.*(\\s?)(\\d{6})$',2);";
+        db.execSQL(insertInteligoSender);
+        db.execSQL(insertInteligoRegExp);
+
+        final String insertMillenniumSender = "INSERT INTO senders VALUES('HasloSMS','Millennium');";
+        final String insertMillenniumRegExp = "INSERT INTO regular_expressions VALUES('HasloSMS','general','.*(HasloSMS: )(\\d{6})$',2);";
+        db.execSQL(insertMillenniumSender);
+        db.execSQL(insertMillenniumRegExp);
+
+        final String insertMultibankSender = "INSERT INTO senders VALUES('3003','MultiBank');";
+        final String insertMultibankRegExp = "INSERT INTO regular_expressions VALUES('3003','general','.*(haslo: )(\\d{8})(\\s?).*',2);";
+        db.execSQL(insertMultibankSender);
+        db.execSQL(insertMultibankRegExp);
+
+        final String insertWalutomatSender = "INSERT INTO senders VALUES('Walutomat','Walutomat');";
+        final String insertWalutomatRegExp = "INSERT INTO regular_expressions VALUES('Walutomat','general','.*(\\s?)(\\d{6})$',2);";
+        db.execSQL(insertWalutomatSender);
+        db.execSQL(insertWalutomatRegExp);
+
+        // TODO add thanks to Marcin Smus
+        final String insertBGZOptimaSender = "INSERT INTO senders VALUES('BGZOptima','BGZ Optima');";
+        final String insertBGZOptimaRegExp = "INSERT INTO regular_expressions VALUES('BGZOptima','general','.*(Haslo: )(\\d{8})$',2);";
+        db.execSQL(insertBGZOptimaSender);
+        db.execSQL(insertBGZOptimaRegExp);
+
+        // TODO add thanks to Damian Klimowicz
+        final String insertBGZSender = "INSERT INTO senders VALUES('Bank BGZ','Bank BGZ');";
+        final String insertBGZRegExp = "INSERT INTO regular_expressions VALUES('Bank BGZ','general','.*(kod: )(\\d{8}).*',2);";
+        db.execSQL(insertBGZSender);
+        db.execSQL(insertBGZRegExp);
+
+        // TODO add thanks to Damian Klimowicz
+        final String insertPocztowySender = "INSERT INTO senders VALUES('Pocztowy','Bank Pocztowy');";
+        final String insertPocztowyRegExp = "INSERT INTO regular_expressions VALUES('Pocztowy','general','.*(Kod: )(\\d{6}).*',2);";
+        db.execSQL(insertPocztowySender);
+        db.execSQL(insertPocztowyRegExp);
+
+//        // TODO add thanks to Damian Klimowicz
+//        final String insertMBankSKRegExp = "INSERT INTO regular_expressions VALUES('3388','general','.*(kod: )(\\d{8})(\\s?).*',2);";
+//        db.execSQL(insertMBankSKRegExp);
+//
+//        // TODO add thanks to Damian Klimowicz
+//        final String insertFIOSender = "INSERT INTO senders VALUES('+420725664075','FIO SK');";
+//        final String insertFIORegExp = "INSERT INTO regular_expressions VALUES('+420725664075','general','^(Aut.kod: )(\\d{7})(\\s?).*',2);";
+//        db.execSQL(insertFIOSender);
+//        db.execSQL(insertFIORegExp);
+
+        // TODO add thanks for Jony
+        final String insertDeutscheBankSender = "INSERT INTO senders VALUES('DB PBC','Deutsche Bank');";
+        final String insertDeutscheBankRegExp = "INSERT INTO regular_expressions VALUES('DB PBC','general','.*(Haslo: )(\\d{8})$',2);";
+        db.execSQL(insertDeutscheBankSender);
+        db.execSQL(insertDeutscheBankRegExp);
     }
 }
