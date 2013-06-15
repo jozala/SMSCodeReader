@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello SMSCodeReader!</string>
     <string name="app_name">SMSCodeReader</string>
+    <string name="Preferences">Ustawienia</string>
+    <string name="smsPassword">Hasło SMSowe</string>
+    <string name="YouWilBeAskedIfCopySMSCodeToClipboard">
+        Po nadejsciu SMSa zostaniesz zapytany czy skopiować hasło do schowka
+    </string>
+    <string name="CodeWillBoCopiedAutomatically">Po nadejsciu SMSa hasło zostanie automatycznie zapisane w schowku
+    </string>
+    <string name="AutoCopy">Automatyczne kopiowanie</string>
+    <string name="SupportedSenders">Obsługiwani nadawcy</string>
+    <string name="ChooseSendersToSupport">Wyłącz obsługę SMSów od wybranych nadawców</string>
+    <string name="app_description">Aplikacja ta ma pomagać w dokonywaniu transakcji bankowych wymagających tzw. &quot;haseł
+        smsowych&quot;. Użycie
+        <b>Czytnika haseł SMS</b>
+        zapobiega potrzebie przechodzenia do skrzynki SMS podczas korzystania z aplikacji bankowej lub przeglądarki do
+        wykonywania przelewów.
+        \nJeśli aplikacja nie obsługuje SMSów z Twojego banku skontaktuj się ze mną: smskody@aetas.pl.
+    </string>
+    <string name="app_credits">Podziękowania: \nAnia\nPiotrek\nMichał
+        EM\nLuki\nWaldek\nIreneusz\nŁukasz\nRafał\nŁukasz\nMarcin\nDamian\nJony
+        <br/>
+    </string>
+    <string name="rejectCode">Odrzuć</string>
+    <string name="informationAboutApp">Informacje o aplikacji</string>
+    <string name="aboutApp">O programie</string>
+    <string name="other">Inne</string>
+
 </resources>

@@ -1,6 +1,7 @@
 package pl.aetas.android.smscode.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import de.akquinet.android.androlog.Log;
@@ -109,38 +110,38 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(insertWalutomatSender);
         db.execSQL(insertWalutomatRegExp);
 
-        // TODO add thanks to Marcin Smus
         final String insertBGZOptimaSender = "INSERT INTO senders VALUES('BGZOptima','BGZ Optima');";
         final String insertBGZOptimaRegExp = "INSERT INTO regular_expressions VALUES('BGZOptima','general','.*(Haslo: )(\\d{8})$',2);";
         db.execSQL(insertBGZOptimaSender);
         db.execSQL(insertBGZOptimaRegExp);
 
-        // TODO add thanks to Damian Klimowicz
         final String insertBGZSender = "INSERT INTO senders VALUES('Bank BGZ','Bank BGZ');";
         final String insertBGZRegExp = "INSERT INTO regular_expressions VALUES('Bank BGZ','general','.*(kod: )(\\d{8}).*',2);";
         db.execSQL(insertBGZSender);
         db.execSQL(insertBGZRegExp);
 
-        // TODO add thanks to Damian Klimowicz
         final String insertPocztowySender = "INSERT INTO senders VALUES('Pocztowy','Bank Pocztowy');";
         final String insertPocztowyRegExp = "INSERT INTO regular_expressions VALUES('Pocztowy','general','.*(Kod: )(\\d{6}).*',2);";
         db.execSQL(insertPocztowySender);
         db.execSQL(insertPocztowyRegExp);
 
-//        // TODO add thanks to Damian Klimowicz
 //        final String insertMBankSKRegExp = "INSERT INTO regular_expressions VALUES('3388','general','.*(kod: )(\\d{8})(\\s?).*',2);";
 //        db.execSQL(insertMBankSKRegExp);
 //
-//        // TODO add thanks to Damian Klimowicz
 //        final String insertFIOSender = "INSERT INTO senders VALUES('+420725664075','FIO SK');";
 //        final String insertFIORegExp = "INSERT INTO regular_expressions VALUES('+420725664075','general','^(Aut.kod: )(\\d{7})(\\s?).*',2);";
 //        db.execSQL(insertFIOSender);
 //        db.execSQL(insertFIORegExp);
 
-        // TODO add thanks for Jony
         final String insertDeutscheBankSender = "INSERT INTO senders VALUES('DB PBC','Deutsche Bank');";
         final String insertDeutscheBankRegExp = "INSERT INTO regular_expressions VALUES('DB PBC','general','.*(Haslo: )(\\d{8})$',2);";
         db.execSQL(insertDeutscheBankSender);
         db.execSQL(insertDeutscheBankRegExp);
+    }
+
+    public Cursor fetchAllSenders(final SQLiteDatabase db) {
+        final String[] sendersColumns = {COL_SENDER_NAME, COL_SENDER_OFFICIAL_NAME};
+
+        return db.query(TABLE_SENDERS, sendersColumns, null, null, null, null, "LOWER(" + COL_SENDER_OFFICIAL_NAME + ")");
     }
 }

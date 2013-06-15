@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/Preferences">
+        <CheckBoxPreference
+                android:defaultValue="true"
+                android:enabled="true"
+                android:key="autoSmsCodeCopy"
+                android:summaryOff="@string/YouWilBeAskedIfCopySMSCodeToClipboard"
+                android:summaryOn="@string/CodeWillBoCopiedAutomatically"
+                android:title="@string/AutoCopy"/>
+        <PreferenceScreen
+                android:key="supportedSenders"
+                android:summary="@string/ChooseSendersToSupport"
+                android:title="@string/SupportedSenders">
+            <!-- Supported senders will be loaded here from DB (see PreferencesActivity class). -->
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/other">
+        <Preference
+                android:key="about"
+                android:summary="@string/informationAboutApp"
+                android:title="@string/aboutApp">
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
