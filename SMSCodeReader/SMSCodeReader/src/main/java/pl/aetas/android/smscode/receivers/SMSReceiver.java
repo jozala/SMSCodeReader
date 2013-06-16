@@ -34,6 +34,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 if (!sendersResource.isSenderKnown(address)) {
                     return;
                 }
+                Log.init(context);
                 SMSProcessorFactory smsProcessorFactory = SMSProcessorFactory.getInstance();
                 try {
                     SMSProcessor smsProcessor = smsProcessorFactory.create(context, sendersResource, address, body);

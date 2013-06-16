@@ -6,6 +6,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.R;
 import pl.aetas.android.smscode.db.SMSCodeReaderSQLiteHelper;
 import pl.aetas.android.smscode.model.Sender;
@@ -19,6 +20,7 @@ import static android.preference.Preference.OnPreferenceClickListener;
 
 public class PreferencesActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
+        Log.init(this);
         if (android.os.Build.VERSION.SDK_INT >= 6 && android.os.Build.VERSION.SDK_INT < 11) {
             // there's a display bug in 2.1, 2.2, 2.3 (unsure about 2.0)
             // which causes PreferenceScreens to have a black background.
