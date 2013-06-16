@@ -16,15 +16,21 @@
         <b>Czytnika haseł SMS</b>
         zapobiega potrzebie przechodzenia do skrzynki SMS podczas korzystania z aplikacji bankowej lub przeglądarki do
         wykonywania przelewów.
-        \nJeśli aplikacja nie obsługuje SMSów z Twojego banku skontaktuj się ze mną: smskody@aetas.pl.
+        Jeśli aplikacja nie obsługuje SMSów z Twojego banku, skontaktuj się ze mną: smskody@aetas.pl.
     </string>
-    <string name="app_credits">Podziękowania: \nAnia\nPiotrek\nMichał
-        EM\nLuki\nWaldek\nIreneusz\nŁukasz\nRafał\nŁukasz\nMarcin\nDamian\nJony
-        <br/>
+    <string name="app_credits">Podziękowania:
+        \nAnia\nPiotrek\nMichał\nLuki\nWaldek\nIreneusz\nŁukasz\nRafał\nŁukasz\nMarcin\nDamian\nJony
     </string>
     <string name="rejectCode">Odrzuć</string>
     <string name="informationAboutApp">Informacje o aplikacji</string>
     <string name="aboutApp">O programie</string>
     <string name="other">Inne</string>
+    <string name="onlyCodeInfoPresented">Zostanie wyswietlona tylko informacja o skopiowaniu kodu</string>
+    <string name="smsContentPresented">Zostanie wyświetlona cała treść SMSa</string>
+    <string name="presentFullSmsContent">Wyświetl pełną treść SMSa</string>
+    <string name="smsCodeReceivedAndSavedInClipboard">Otrzymano hasło SMS %s i zapisano w schowku</string>
+    <string name="doYouWantToCopyCodeToClipboard">Otrzymano hasło SMS ({0}) od {1}. Czy chcesz skopiować hasło do
+        schowka?
+    </string>
 
 </resources>

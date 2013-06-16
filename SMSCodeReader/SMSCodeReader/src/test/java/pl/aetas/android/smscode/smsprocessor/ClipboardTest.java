@@ -1,4 +1,4 @@
-package pl.aetas.android.smscode.basic;
+package pl.aetas.android.smscode.smsprocessor;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -9,6 +9,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
+import pl.aetas.android.smscode.presenter.Clipboard;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;

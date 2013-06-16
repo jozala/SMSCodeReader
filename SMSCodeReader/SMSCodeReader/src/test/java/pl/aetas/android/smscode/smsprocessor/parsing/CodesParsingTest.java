@@ -1,4 +1,4 @@
-package pl.aetas.android.smscode.basic.parsing;
+package pl.aetas.android.smscode.smsprocessor.parsing;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

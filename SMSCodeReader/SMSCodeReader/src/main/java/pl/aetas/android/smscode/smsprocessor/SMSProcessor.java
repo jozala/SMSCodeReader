@@ -1,24 +1,22 @@
-package pl.aetas.android.smscode.basic;
+package pl.aetas.android.smscode.smsprocessor;
 
 import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.exception.CodeNotFoundException;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
+import pl.aetas.android.smscode.presenter.SMSInfoPresenter;
 
 /**
  * Main class responsible for processing all incoming SMS for SMSCodeReader app
  */
 public class SMSProcessor {
 
-    private final Clipboard clipboard;
     private final SMSInfoPresenter smsInfoPresenter;
     private final SMSCodeParser smsCodeParser;
 
-    public SMSProcessor(final Clipboard clipboard, final SMSCodeParser smsCodeParser, final SMSInfoPresenter smsInfoPresenter) {
-        if (clipboard == null) throw new NullPointerException("Clipboard cannot be null");
+    public SMSProcessor(final SMSCodeParser smsCodeParser, final SMSInfoPresenter smsInfoPresenter) {
         if (smsInfoPresenter == null) throw new NullPointerException("SMSInfoPresenter cannot be null");
         if (smsCodeParser == null) throw new NullPointerException("SMSCodeParser cannot be null");
 
-        this.clipboard = clipboard;
         this.smsInfoPresenter = smsInfoPresenter;
         this.smsCodeParser = smsCodeParser;
     }
@@ -34,8 +32,7 @@ public class SMSProcessor {
 
         try {
             String code = smsCodeParser.retrieveCodeFromSMSBody(smsBody);
-            clipboard.save(code);
-            smsInfoPresenter.presentInfoToUserIfChosen(code);
+            smsInfoPresenter.presentInfoToUser(code);
         } catch (CodeNotFoundException e) {
             Log.e(SMSProcessor.class.getName(), "SMS is relevant for code reader, but code has not been found in message body", e);
             throw new RuntimeException(e);

@@ -1,11 +1,15 @@
-package pl.aetas.android.smscode.basic;
+package pl.aetas.android.smscode.smsprocessor;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.model.CodesRegularExpressions;
 import pl.aetas.android.smscode.model.Sender;
 import pl.aetas.android.smscode.parser.SMSCodeParser;
+import pl.aetas.android.smscode.presenter.Clipboard;
+import pl.aetas.android.smscode.presenter.SMSInfoPresenter;
 import pl.aetas.android.smscode.resource.SendersResource;
 
 public final class SMSProcessorFactory {
@@ -22,12 +26,26 @@ public final class SMSProcessorFactory {
         final Sender sender = retrieveSender(sendersResource, senderName);
         final SMSCodeParser smsCodeParser = createSMSCodeParser(sender.getCodesRegularExpressions());
         final Clipboard clipboard = createClipboard(context);
-        final SMSInfoPresenter smsInfoPresenter = createSMSInfoPresenter(sender, smsBody);
-        return new SMSProcessor(clipboard, smsCodeParser, smsInfoPresenter);
+        final SMSInfoPresenter smsInfoPresenter = createSMSInfoPresenter(clipboard, sender, smsBody, context);
+        return new SMSProcessor(smsCodeParser, smsInfoPresenter);
     }
 
-    private SMSInfoPresenter createSMSInfoPresenter(final Sender sender, final String smsBody) {
-        return new SMSInfoPresenter(sender, smsBody);
+    private SMSInfoPresenter createSMSInfoPresenter(final Clipboard clipboard, final Sender sender, final String smsBody, final Context context) {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final boolean autoSmsCodeCopy = preferences.getBoolean("autoSmsCodeCopy", true);
+        final boolean presentSmsContent = preferences.getBoolean("presentSmsContent", true);
+
+        if (autoSmsCodeCopy && presentSmsContent) {
+            return SMSInfoPresenter.createPresenterWithAutoCopyAndFullSMSContent(context, clipboard, sender, smsBody);
+        } else if (autoSmsCodeCopy && !presentSmsContent) {
+            return SMSInfoPresenter.createPresenterWithAutoCopyAndBasicCodeInfo(context, clipboard, sender, smsBody);
+        } else if (!autoSmsCodeCopy && presentSmsContent) {
+            return SMSInfoPresenter.createPresenterWithAskingIfCopyAndFullSMSContent(context, clipboard, sender, smsBody);
+        } else {
+            return SMSInfoPresenter.createPresenterWithAskingIfCopyAndBasicCodeInfo(context, clipboard, sender, smsBody);
+        }
+
+
     }
 
     private Clipboard createClipboard(final Context context) {

@@ -9,6 +9,13 @@
                 android:summaryOff="@string/YouWilBeAskedIfCopySMSCodeToClipboard"
                 android:summaryOn="@string/CodeWillBoCopiedAutomatically"
                 android:title="@string/AutoCopy"/>
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:enabled="true"
+                android:key="presentSmsContent"
+                android:summaryOff="@string/onlyCodeInfoPresented"
+                android:summaryOn="@string/smsContentPresented"
+                android:title="@string/presentFullSmsContent"/>
         <PreferenceScreen
                 android:key="supportedSenders"
                 android:summary="@string/ChooseSendersToSupport"

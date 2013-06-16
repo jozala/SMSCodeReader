@@ -1,4 +1,4 @@
-package pl.aetas.android.smscode.basic;
+package pl.aetas.android.smscode.presenter;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AboutActivity" android:label="About SMSCodeReader"/>
-        <activity android:name=".activity.TransparentLayerActivity"/>
+        <activity android:name=".activity.SMSCodeReceivedAlertActivity"/>
         <receiver android:name=".receivers.SMSReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>

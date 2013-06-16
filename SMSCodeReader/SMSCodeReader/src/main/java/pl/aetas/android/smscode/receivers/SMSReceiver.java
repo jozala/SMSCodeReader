@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import de.akquinet.android.androlog.Log;
-import pl.aetas.android.smscode.basic.SMSProcessor;
-import pl.aetas.android.smscode.basic.SMSProcessorFactory;
 import pl.aetas.android.smscode.db.SMSCodeReaderSQLiteHelper;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.resource.SendersResource;
+import pl.aetas.android.smscode.smsprocessor.SMSProcessor;
+import pl.aetas.android.smscode.smsprocessor.SMSProcessorFactory;
 
 public class SMSReceiver extends BroadcastReceiver {
 
