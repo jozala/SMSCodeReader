@@ -1,10 +1,8 @@
 package pl.aetas.android.smscode.presenter;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
+import android.text.ClipboardManager;
 
 public class Clipboard {
-    private final static String CLIPDATA_LABEL = "SMSCodeReader code";
 
     private final ClipboardManager clipboardManager;
 
@@ -13,6 +11,6 @@ public class Clipboard {
     }
 
     public void save(final CharSequence stringToSave) {
-        clipboardManager.setPrimaryClip(ClipData.newPlainText(CLIPDATA_LABEL, stringToSave));
+        clipboardManager.setText(stringToSave);
     }
 }

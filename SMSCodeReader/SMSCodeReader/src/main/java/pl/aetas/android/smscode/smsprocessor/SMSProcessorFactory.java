@@ -1,9 +1,9 @@
 package pl.aetas.android.smscode.smsprocessor;
 
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.ClipboardManager;
 import pl.aetas.android.smscode.exception.UnknownSenderException;
 import pl.aetas.android.smscode.model.CodesRegularExpressions;
 import pl.aetas.android.smscode.model.Sender;

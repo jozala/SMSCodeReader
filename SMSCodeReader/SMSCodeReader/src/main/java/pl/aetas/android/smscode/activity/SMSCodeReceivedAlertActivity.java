@@ -2,10 +2,10 @@ package pl.aetas.android.smscode.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.ClipboardManager;
 import android.widget.Toast;
 import pl.aetas.android.smscode.R;
 import pl.aetas.android.smscode.presenter.Clipboard;

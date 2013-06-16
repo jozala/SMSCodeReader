@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SMSCodeReader</string>
+    <string name="app_name">Czytnik haseł SMS</string>
     <string name="Preferences">Ustawienia</string>
     <string name="smsPassword">Hasło SMSowe</string>
-    <string name="YouWilBeAskedIfCopySMSCodeToClipboard">
-        Po nadejsciu SMSa zostaniesz zapytany czy skopiować hasło do schowka
+    <string name="YouWilBeAskedIfCopySMSCodeToClipboard">Po nadejsciu SMSa zostaniesz zapytany czy skopiować hasło do
+        schowka
     </string>
     <string name="CodeWillBoCopiedAutomatically">Po nadejsciu SMSa hasło zostanie automatycznie zapisane w schowku
     </string>
@@ -15,8 +15,8 @@
         smsowych&quot;. Użycie
         <b>Czytnika haseł SMS</b>
         zapobiega potrzebie przechodzenia do skrzynki SMS podczas korzystania z aplikacji bankowej lub przeglądarki do
-        wykonywania przelewów.
-        Jeśli aplikacja nie obsługuje SMSów z Twojego banku, skontaktuj się ze mną: smskody@aetas.pl.
+        wykonywania przelewów. Jeśli aplikacja nie obsługuje SMSów z Twojego banku, skontaktuj się ze mną:
+        smskody@aetas.pl.
     </string>
     <string name="app_credits">Podziękowania:
         \nAnia\nPiotrek\nMichał\nLuki\nWaldek\nIreneusz\nŁukasz\nRafał\nŁukasz\nMarcin\nDamian\nJony
@@ -32,5 +32,6 @@
     <string name="doYouWantToCopyCodeToClipboard">Otrzymano hasło SMS ({0}) od {1}. Czy chcesz skopiować hasło do
         schowka?
     </string>
+    <string name="about_activity_name">About SMSCodeReader</string>
 
 </resources>

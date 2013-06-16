@@ -1,7 +1,6 @@
 package pl.aetas.android.smscode.resource;
 
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import de.akquinet.android.androlog.Log;
 import pl.aetas.android.smscode.db.SMSCodeReaderSQLiteHelper;
@@ -30,7 +29,11 @@ public class SendersResource {
 
     public boolean isSenderKnown(final String senderName) {
         final SQLiteDatabase database = dbHelper.getReadableDatabase();
-        final long numberOfSendersWithGivenName = DatabaseUtils.queryNumEntries(database, TABLE_SENDERS, COL_SENDER_NAME + "=" + senderName);
+        final String sqlQuery = "SELECT count(*) FROM " + TABLE_SENDERS + " WHERE " + COL_SENDER_NAME + " = '" + senderName + "'";
+        final Cursor countSendersCursor = database.rawQuery(sqlQuery, null);
+        countSendersCursor.moveToFirst();
+        final int numberOfSendersWithGivenName = countSendersCursor.getInt(0);
+        countSendersCursor.close();
         final boolean senderExists = numberOfSendersWithGivenName > 0;
         database.close();
         return senderExists;
