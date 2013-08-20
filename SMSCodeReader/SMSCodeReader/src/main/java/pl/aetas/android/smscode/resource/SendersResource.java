@@ -29,7 +29,7 @@ public class SendersResource {
 
     public boolean isSenderKnown(final String senderName) {
         final SQLiteDatabase database = dbHelper.getReadableDatabase();
-        final String sqlQuery = "SELECT count(*) FROM " + TABLE_SENDERS + " WHERE " + COL_SENDER_NAME + " = '" + senderName + "'";
+        final String sqlQuery = "SELECT count(*) FROM " + TABLE_SENDERS + " WHERE " + COL_SENDER_NAME + " = '" + senderName + "' COLLATE NOCASE";
         final Cursor countSendersCursor = database.rawQuery(sqlQuery, null);
         countSendersCursor.moveToFirst();
         final int numberOfSendersWithGivenName = countSendersCursor.getInt(0);
@@ -76,7 +76,7 @@ public class SendersResource {
 
     private Cursor getRegularExpressionsForSender(final String senderName, final SQLiteDatabase database) {
         final String[] regularExpressionsColumns = {COL_REGEXP_EXPRESSION, COL_REGEXP_RELEVANT_GROUP_NUMBER};
-        final Cursor regularExpressionsCursor = database.query(TABLE_REGULAR_EXPRESSIONS, regularExpressionsColumns, COL_REGEXP_SENDER_NAME + "='" + senderName + "'", null, null, null, null);
+        final Cursor regularExpressionsCursor = database.query(TABLE_REGULAR_EXPRESSIONS, regularExpressionsColumns, COL_REGEXP_SENDER_NAME + "='" + senderName + "' COLLATE NOCASE", null, null, null, null);
         if (regularExpressionsCursor.getCount() < 1) {
             Log.e(SendersResource.class, "No codes regular expression found in DB for known Sender: " + senderName);
             throw new NoCodesForKnownSenderException("No codes for sender " + senderName + " found");
@@ -87,7 +87,7 @@ public class SendersResource {
 
     private Cursor getSenderByName(final String senderName, final SQLiteDatabase database) throws UnknownSenderException {
         final String[] sendersColumns = {COL_SENDER_NAME, COL_SENDER_OFFICIAL_NAME};
-        final Cursor senderCursor = database.query(TABLE_SENDERS, sendersColumns, COL_SENDER_NAME + " = '" + senderName + "'", null, null, null, null);
+        final Cursor senderCursor = database.query(TABLE_SENDERS, sendersColumns, COL_SENDER_NAME + " = '" + senderName + "' COLLATE NOCASE", null, null, null, null);
         final int sendersCount = senderCursor.getCount();
         if (sendersCount != 1) {
             throw new UnknownSenderException("Should be exactly 1 sender but found: " + sendersCount + " senders with name " + senderName);

@@ -16,7 +16,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_REGEXP_EXPRESSION = "expression";
     public static final String COL_REGEXP_RELEVANT_GROUP_NUMBER = "relevant_group_number";
     private static final String DATABASE_NAME = "smscodereader.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String CREATE_TABLE_SENDERS = "CREATE TABLE senders (" +
             "    name TEXT PRIMARY KEY," +
             "    official_name TEXT NOT NULL" +
@@ -71,7 +71,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(insertAliorSyncRegExp);
 
         final String insertBzwbkSender = "INSERT INTO senders VALUES('BZWBK24','BZWBK24');";
-        final String insertBzwbkRegExp = "INSERT INTO regular_expressions VALUES('BZWBK24','general','^(smsKod: )(\\d{8})(\\s?).*',2);";
+        final String insertBzwbkRegExp = "INSERT INTO regular_expressions VALUES('BZWBK24','general','.*(smsKod: )(\\d{8})(\\s?).*',2);";
         db.execSQL(insertBzwbkSender);
         db.execSQL(insertBzwbkRegExp);
 
@@ -137,6 +137,25 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         final String insertDeutscheBankRegExp = "INSERT INTO regular_expressions VALUES('DB PBC','general','.*(Haslo: )(\\d{8})$',2);";
         db.execSQL(insertDeutscheBankSender);
         db.execSQL(insertDeutscheBankRegExp);
+
+        final String insertGoogleSender = "INSERT INTO senders VALUES('Google','Google');";
+        final String insertGooglePLRegExp = "INSERT INTO regular_expressions VALUES('Google','2-step verification PL','.*(Google to )(\\d{6}).*',2);";
+        final String insertGoogleENRegExp = "INSERT INTO regular_expressions VALUES('Google','2-step verification EN','.*(code is )(\\d{6}).*',2);";
+        db.execSQL(insertGoogleSender);
+        db.execSQL(insertGooglePLRegExp);
+        db.execSQL(insertGoogleENRegExp);
+
+        final String insertDropboxSender = "INSERT INTO senders VALUES('+15105647313','Dropbox');";
+        final String insertDropboxPLRegExp = "INSERT INTO regular_expressions VALUES('+15105647313','2-step verification PL','.*(Kod zabezpieczajacy to )(\\d{6}).*',2);";
+        final String insertDropboxENRegExp = "INSERT INTO regular_expressions VALUES('+15105647313','2-step verification EN','.*(security code is )(\\d{6}).*',2);";
+        db.execSQL(insertDropboxSender);
+        db.execSQL(insertDropboxPLRegExp);
+        db.execSQL(insertDropboxENRegExp);
+
+        final String insertIdeaBankSender = "INSERT INTO senders VALUES('IDEA BANK','IDEA Bank');";
+        final String insertIdeaBankRegExp = "INSERT INTO regular_expressions VALUES('IDEA Bank','general','.*(Haslo: )([a-zA-Z0-9]{6})$',2);";
+        db.execSQL(insertIdeaBankSender);
+        db.execSQL(insertIdeaBankRegExp);
     }
 
     public Cursor fetchAllSenders(final SQLiteDatabase db) {
