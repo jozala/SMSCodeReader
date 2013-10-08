@@ -51,14 +51,22 @@ public class SMSCodeReceivedAlertActivity extends Activity {
     }
 
     private CharSequence prepareUserMessage(String smsCode, String smsSender, String smsBody) {
-        String message = MessageFormat.format(getString(R.string.doYouWantToCopyCodeToClipboard), smsCode, smsSender);
+        String message = MessageFormat.format(getString(R.string.doYouWantToCopyCodeToClipboard), getEasyToReadCode(smsCode), smsSender);
         message += "\n\n" + smsBody;
 
         return message;
     }
 
     private void informUser(String smsCode) {
-        String message = String.format(getApplicationContext().getString(R.string.smsCodeReceivedAndSavedInClipboard), smsCode);
+        String message = String.format(getApplicationContext().getString(R.string.smsCodeReceivedAndSavedInClipboard), getEasyToReadCode(smsCode));
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private String getEasyToReadCode(String code) {
+        final int codeLength = code.length();
+        final int middleOfTheCode = (codeLength / 2);
+        final StringBuilder codeStringBuilder = new StringBuilder(code);
+        codeStringBuilder.insert(middleOfTheCode, ' ');
+        return codeStringBuilder.toString();
     }
 }
