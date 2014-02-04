@@ -55,13 +55,13 @@ public class CodesParsingTest {
                 "mBank 3", ".*(haslo: )(\\d{8})(\\s?).*", 2, "Operacja nr 3 z dn. 02-12-2012 Doladowanie telefonu nr: 665234432 z rach.: ...88776655 kwota: 10,00 PLN haslo: 04816169 mBank.", "04816169"
         });
         testData.add(new Object[]{
-                "BZWBK 1", "^(smsKod: )(\\d{8})(\\s?).*", 2, "smsKod: 27563032 przelew na 97114020040000312345076770 Anna Kowalska 200,00 PLN styczen", "27563032"
+                "BZWBK 1", "[\\s\\S]*(smsKod: )(\\d{8})(\\s?).*", 2, "smsKod: 27563032 przelew na 97114020040000312345076770 Anna Kowalska 200,00 PLN styczen", "27563032"
         });
         testData.add(new Object[]{
-                "BZWBK 2", "^(smsKod: )(\\d{8})(\\s?).*", 2, "smsKod: 17776446 przelew24 na 10109020530000000109114170 DOTPAY SPOLKA AKCYJNA 35,30 PLN APID=1422512-", "17776446"
+                "BZWBK 2", "[\\s\\S]*(smsKod: )(\\d{8})(\\s?).*", 2, "smsKod: 17776446 przelew24 na 10109020530000000109114170 DOTPAY SPOLKA AKCYJNA 35,30 PLN APID=1422512-", "17776446"
         });
         testData.add(new Object[]{
-                "BZWBK 3", "^(smsKod: )(\\d{8})(\\s?).*", 2, "smsKod: 61633987 dla operacji: logowanie do aplikacji BZWBK24 mobile 09.08.2013 11:02", "61633987"
+                "BZWBK 3", "[\\s\\S]*(smsKod: )(\\d{8})(\\s?).*", 2, "smsKod: 61633987 dla operacji: logowanie do aplikacji BZWBK24 mobile 09.08.2013 11:02", "61633987"
         });
         testData.add(new Object[]{
                 "ING 1", ".*(\\s?to: )(\\S+)(\\s?).*", 2, "ING Bank. Sprawdz KWOTE i RACHUNEK. Kod autoryzacyjny dla przelewu z rachunku 35 XXX 615,\n na kwote 232,12 to: 98765432 ** 2012.10.30 ** HH:MM:SS.", "98765432"
@@ -117,6 +117,10 @@ public class CodesParsingTest {
         });
         testData.add(new Object[]{
                 "IDEA Bank", ".*(Haslo: )([a-zA-Z0-9]{6})$", 2, "Operacja z dnia: 2013-04-18 19:45 Przelew z rach: 025941940002 na rach: 881240...010005843281 na kwote: 69  Haslo: rw53gs", "rw53gs"
+        });
+        testData.add(new Object[]{
+                "Getin", "[\\s\\S]*(Haslo nr[0-9]*: )([a-zA-Z0-9]{6})$", 2, "Operacja z dnia: 2013-11-04 09:48\n" +
+                "Przelew z rach: 002422220000 na rach: 211020....123401434300 na kwote: 99.00 Haslo nr1: 6rgbmk", "6rgbmk"
         });
 
 

@@ -71,7 +71,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(insertAliorSyncRegExp);
 
         final String insertBzwbkSender = "INSERT INTO senders VALUES('BZWBK24','BZWBK24');";
-        final String insertBzwbkRegExp = "INSERT INTO regular_expressions VALUES('BZWBK24','general','.*(smsKod: )(\\d{8})(\\s?).*',2);";
+        final String insertBzwbkRegExp = "INSERT INTO regular_expressions VALUES('BZWBK24','general','[\\s\\S]*(smsKod: )(\\d{8})(\\s?).*',2);";
         db.execSQL(insertBzwbkSender);
         db.execSQL(insertBzwbkRegExp);
 
@@ -156,6 +156,11 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
         final String insertIdeaBankRegExp = "INSERT INTO regular_expressions VALUES('IDEA Bank','general','.*(Haslo: )([a-zA-Z0-9]{6})$',2);";
         db.execSQL(insertIdeaBankSender);
         db.execSQL(insertIdeaBankRegExp);
+
+        final String insertGetinSender = "INSERT INTO senders VALUES('GetinOnline','Getin Bank');";
+        final String insertGetinRegExp = "INSERT INTO regular_expressions VALUES('GetinOnline','general','[\\s\\S]*(Haslo nr[0-9]*: )([a-zA-Z0-9]{6})$',2);";
+        db.execSQL(insertGetinSender);
+        db.execSQL(insertGetinRegExp);
     }
 
     public Cursor fetchAllSenders(final SQLiteDatabase db) {
