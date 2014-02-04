@@ -6,7 +6,7 @@
     <parent>
         <groupId>pl.aetas.android.smscode</groupId>
         <artifactId>SMSCodeReader-parent</artifactId>
-        <version>1.5</version>
+        <version>1.7</version>
     </parent>
 
     <artifactId>SMSCodeReader-it-it</artifactId>
@@ -23,14 +23,14 @@
             <groupId>pl.aetas.android.smscode</groupId>
             <artifactId>SMSCodeReader</artifactId>
             <type>apk</type>
-            <version>1.5</version>
+            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>pl.aetas.android.smscode</groupId>
             <artifactId>SMSCodeReader</artifactId>
             <type>jar</type>
-            <version>1.5</version>
+            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

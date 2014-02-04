@@ -16,7 +16,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_REGEXP_EXPRESSION = "expression";
     public static final String COL_REGEXP_RELEVANT_GROUP_NUMBER = "relevant_group_number";
     private static final String DATABASE_NAME = "smscodereader.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String CREATE_TABLE_SENDERS = "CREATE TABLE senders (" +
             "    name TEXT PRIMARY KEY," +
             "    official_name TEXT NOT NULL" +
