@@ -29,7 +29,7 @@ Starting from version 1.6 application also supports Google and Dropbox 2-steps v
 
 Application is [available on Google Play](https://play.google.com/store/apps/details?id=pl.aetas.android.smscode).
 
-This source code is licensed using GPLv3 License.
+The program and its source code is distributed under the terms of the GNU General Public License.
 The text of the license is available [here](http://opensource.org/licenses/GPL-3.0)
 
 If you have any issues with this app - please contact me using email: smskody@aetas.pl
