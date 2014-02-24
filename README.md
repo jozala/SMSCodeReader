@@ -1,7 +1,7 @@
-SMSCodeReader
-=============
+SMS Code Reader
+===============
 
-SMS Code Reader makes using on-line bank accounts on smartphone a bit easier. Main purpose of this application is to automatically copy the code sent by bank in the text message (to authorize operation on your account) to the clipboard of your phone. This way, the process of transferring money is simplified. You do not need to close web browser (or banking app) in your phone, go to text message (SMS) application, remember the code and then go back to the browser to key it in.
+SMS Code Reader makes using on-line bank accounts on a smartphone with Android a bit easier. Main purpose of this application is to automatically copy the code sent by bank in the text message (to authorize operation on your account) to the clipboard of your phone. This way, the process of transferring money is simplified. You do not need to close web browser (or banking app) in your phone, go to text message (SMS) application, remember the code and then go back to the browser to key it in.
 With SMS Code Reader when the SMS with the code arrives, app will inform you and automatically copy the code to the clipboard. The only action required is to paste the code to the appropriate field in the browser or application.
 
 Currently SMS Code Reader supports many Polish banks:
