@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<senders>
+    <sender name="3388" display-name="mBank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(haslo: )(\d{8})(\s?).*</expression>
+                <test-data>
+                    <test-message expected-code="12345678">Operacja nr 5 z dn. 06-12-2012 Przelew z rach.: ...05767939 na rach.: 8511...430535 kwota: 620,00 PLN haslo: 12345678 mBank.</test-message>
+                    <test-message expected-code="87654321">Operacja nr 10 z dn. 09-12-2012 mTransfer z rach.: ...12347939 na rach.: 1511...746928 kwota: 5,80 PLN haslo: 87654321 mBank.</test-message>
+                    <test-message expected-code="04816169">Operacja nr 3 z dn. 02-12-2012 Doladowanie telefonu nr: 665234432 z rach.: ...88776655 kwota: 10,00 PLN haslo: 04816169 mBank.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="Alior Bank" display-name="Alior Bank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="627902">Alior Bank: Przelew na rachunek 24...1525; Odbiorca: Revelco Sp. z o.o.; Kwota 600,00 EUR ; Kod SMS nr 18 z dn. 18-01-2013: 627902</test-message>
+                    <test-message expected-code="746550">Alior Bank: Przelew na rachunek 44...1234; Odbiorca: PayU S.A.; Kwota 125,30 ; Kod SMS nr 3 z dn. 14-01-2013: 746550</test-message>
+                    <test-message expected-code="524965">Alior Bank:  Przelewy do zatwierdzenia; 4 szt., kwota: 269,31 PLN; Kod SMS nr 129 z dn. 19-12-2012: 524965</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="Alior Sync" display-name="Alior Sync">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="791269">Zmiana kodu PIN karty platniczej numer 5102 59** **** 9358; Kod SMS nr 33 z dn. 02/03/2014: 791269</test-message>
+                    <test-message expected-code="881799">Przelew na rachunek 50..7409; Odbiorca eCard S.A.; Kwota 10,00 PLN; Kod SMS nr 34 z dn. 03/03/2014: 881799</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="BZWBK24" display-name="BZWBK24">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">[\s\S]*(smsKod: )(\d{8})(\s?).*</expression>
+                <test-data>
+                    <test-message expected-code="27563032">smsKod: 27563032 przelew na 97114020040000312345076770 Anna Kowalska 200,00 PLN styczen</test-message>
+                    <test-message expected-code="17776446">smsKod: 17776446 przelew24 na 10109020530000000109114170 DOTPAY SPOLKA AKCYJNA 35,30 PLN APID=1422512-</test-message>
+                    <test-message expected-code="61633987">smsKod: 61633987 dla operacji: logowanie do aplikacji BZWBK24 mobile 09.08.2013 11:02</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="PKOBP" display-name="iPKO">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="560409">23-10-2012 20:32; Przelew na rachunek 23..1903; Kwota: 54.00 PLN; Kod SMS nr 2: 560409</test-message>
+                    <test-message expected-code="252541">14-11-2012 21:58; Przelew do ZUS; Kwota: 674.88 PLN; Kod SMS nr 4: 252541</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="PKO BP" display-name="iPKO">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="560409">23-10-2012 20:32; Przelew na rachunek 23..1903; Kwota: 54.00 PLN; Kod SMS nr 2: 560409</test-message>
+                    <test-message expected-code="252541">14-11-2012 21:58; Przelew do ZUS; Kwota: 674.88 PLN; Kod SMS nr 4: 252541</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="ING" display-name="ING">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?to: )(\S+)(\s?).*</expression>
+                <test-data>
+                    <test-message expected-code="98765432">ING Bank. Sprawdz KWOTE i RACHUNEK. Kod autoryzacyjny dla przelewu z rachunku 35 XXX 615,
+                        na kwote 232,12 to: 98765432 ** 2012.10.30 ** HH:MM:SS.</test-message>
+                    <test-message expected-code="10574818">ING Bank. Kod Autoryzacyjny dla doladowania telefonu numer 600123456 na kwote 25.00 to: 10574818 ** 2012.11.05 ** 07:43:27.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="Inteligo" display-name="Inteligo">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="517593">25-11-2011 00:57; Przelew na rachunek 09..2372; Kwota: 4.29 PLN; Kod SMS nr 1: 517593</test-message>
+                    <test-message expected-code="671080">25-04-2011 19:16; Doladowanie telefonu komorkowego; Kwota: 25.00 PLN; Kod SMS nr 1: 671080</test-message>
+                    <test-message expected-code="576407">07-05-2011 10:04; Aktywacja karty platniczej; Kod SMS nr 12: 576407</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="HasloSMS" display-name="Millennium">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(HasloSMS: )(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="080422">Operacja nr 2 z dn. 20-02-2013 Zmiana limitu miesiecznego karty dodatkowej nr: ...4836 Nowy limit: 500 PLN HasloSMS: 080422</test-message>
+                    <test-message expected-code="834870">Operacja nr 1 z dn. 2013-03-23 Aktywacja aplikacji mobilnej na urzadzeniu HasloSMS: 834870</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="3003" display-name="MultiBank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(haslo: )(\d{8})(\s?).*</expression>
+                <test-data>
+                    <test-message expected-code="15071869">Operacja nr 1 z dn. 13-12-2012 Przelew z rach.: ...05679549 na rach.: 6911...158260 kwota: 400,00 PLN haslo: 15071869 MultiBank</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="Walutomat" display-name="Walutomat">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="256304">Walutomat.pl - Wyplata srodkow. Kod potwierdzajacy nr 1: 256304</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="BGZOptima" display-name="BGZ Optima">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Haslo: )(\d{8})$</expression>
+                <test-data>
+                    <test-message expected-code="61790559">BGZOptima operacja nr 1 z dn. 27.05.2013. Logowanie do konta. Haslo: 61790559</test-message>
+                    <test-message expected-code="65905217">BGZOptima operacja nr 2 z dn. 27.05.2013 Przelew na kwote 1,00 PLN. Haslo: 65905217</test-message>
+                </test-data>
+            </message>
+
+        </messages>
+    </sender>
+    <sender name="Bank BGZ" display-name="Bank BGZ">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(kod: )(\d{8}).*</expression>
+                <test-data>
+                    <test-message expected-code="20911733">Operacja nr 2 z dn. 2013-04-03
+                        Edycja ustawien
+                        kod: 20911733
+                        Bank BGZ</test-message>
+                    <test-message expected-code="04814254">Operacja nr 3 z dn. 2013-04-03
+                        Przelew z rach.: 12415440
+                        na rach.: PL41...832121
+                        tyt.: tytul
+                        kwota: 1,00 EUR
+                        kod: 04814254
+                        Bank BGZ</test-message>
+                    <test-message expected-code="19340705">Operacja nr 1 z dn. 2013-04-03
+                        Przelew z rach.: 12415440
+                        na rach.: 6111...779982
+                        tyt.: 122781901
+                        kwota: 0,01 PLN
+                        kod: 19340705
+                        Bank BGZ</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="Pocztowy" display-name="Bank Pocztowy">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Kod: )(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="564303">Operacja z dn. 08-04-2013, godz. 11:13. Doladowanie nr tel. 886717750 z rach.: 711...001, kwota: 5,00 PLN. Kod: 564303.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="DB PBC" display-name="Deutsche Bank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Haslo: )(\d{8})$</expression>
+                <test-data>
+                    <test-message expected-code="06616041">DB PBC Operacja nr 1 Data: 19-02-2013 Przelew zwykly - Nowy Z rach.: 6819...73000001 Na rach.: 6024...71705133 Kwota: 1000,00 PLN Haslo: 06616041</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="Google" display-name="Google">
+        <messages>
+            <message type="2-step verification PL">
+                <expression relevant-group-number="2">.*(Google to )(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="650312">Twój kod weryfikacyjny Google to 650312.</test-message>
+                </test-data>
+            </message>
+            <message type="2-step verification EN">
+                <expression relevant-group-number="2">.*(code is )(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="831234">Your Google verification code is 831234</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="+15105647313" display-name="Dropbox">
+        <messages>
+            <message type="2-step verification PL">
+                <expression relevant-group-number="2">.*(Kod zabezpieczajacy to )(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="697281">Kod zabezpieczajacy to 697281. Milego korzystania z Dropbox!</test-message>
+                </test-data>
+            </message>
+            <message type="2-step verification EN">
+                <expression relevant-group-number="2">.*(security code is )(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="533344">Your security code is 533344. Happy Dropboxing!</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="IDEA BANK" display-name="IDEA Bank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Haslo: )([a-zA-Z0-9]{6})$</expression>
+                <test-data>
+                    <test-message expected-code="rw53gs">Operacja z dnia: 2013-04-18 19:45 Przelew z rach: 025941940002 na rach: 881240...010005843281 na kwote: 69  Haslo: rw53gs</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="GetinOnline" display-name="Getin Bank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">[\s\S]*(Haslo nr[0-9]*: )([a-zA-Z0-9]{6})$</expression>
+                <test-data>
+                    <test-message expected-code="6rgbmk">Operacja z dnia: 2013-11-04 09:48
+                        Przelew z rach: 002422220000 na rach: 211020....123401434300 na kwote: 99.00 Haslo nr1: 6rgbmk</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+</senders>

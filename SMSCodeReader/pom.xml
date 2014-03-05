@@ -10,12 +10,10 @@
 
     <modules>
         <module>SMSCodeReader</module>
-        <module>SMSCodeReader-it</module>
     </modules>
 
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <android.sdk.path>/home/mariusz/apps/adt-bundle-linux-x86_64/sdk</android.sdk.path>
     </properties>
 
     <dependencyManagement>
@@ -55,7 +53,7 @@
                 <plugin>
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                     <artifactId>android-maven-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>3.8.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
