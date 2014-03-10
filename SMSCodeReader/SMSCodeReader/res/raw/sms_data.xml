@@ -38,11 +38,12 @@
     <sender name="BZWBK24" display-name="BZWBK24">
         <messages>
             <message type="general">
-                <expression relevant-group-number="2">[\s\S]*(smsKod: )(\d{8})(\s?).*</expression>
+                <expression relevant-group-number="2">[\s\S]*(smsKod: )(\d{8})[\s\S]*</expression>
                 <test-data>
                     <test-message expected-code="27563032">smsKod: 27563032 przelew na 97114020040000312345076770 Anna Kowalska 200,00 PLN styczen</test-message>
                     <test-message expected-code="17776446">smsKod: 17776446 przelew24 na 10109020530000000109114170 DOTPAY SPOLKA AKCYJNA 35,30 PLN APID=1422512-</test-message>
                     <test-message expected-code="61633987">smsKod: 61633987 dla operacji: logowanie do aplikacji BZWBK24 mobile 09.08.2013 11:02</test-message>
+                    <test-message expected-code="39323907">smsKod: 39323907 przelew walutowy na rachunek obcy w BZWBK 18109013460000000111799073 Currency One SA 283,48 EUR 283,48 EUR WX32219WX</test-message>
                 </test-data>
             </message>
         </messages>
@@ -232,6 +233,16 @@
                 <test-data>
                     <test-message expected-code="6rgbmk">Operacja z dnia: 2013-11-04 09:48
                         Przelew z rach: 002422220000 na rach: 211020....123401434300 na kwote: 99.00 Haslo nr1: 6rgbmk</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender name="PLAY24" display-name="Play24">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">[\s\S]*(Jednorazowe haslo SMS: )([0-9]{4})[\s\S]*</expression>
+                <test-data>
+                    <test-message expected-code="2230">Jednorazowe haslo SMS: 2230</test-message>
                 </test-data>
             </message>
         </messages>
