@@ -1,11 +1,13 @@
 package pl.aetas.android.smscode.db;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import de.akquinet.android.androlog.Log;
 import org.xml.sax.SAXException;
+import pl.aetas.android.smscode.R;
 import pl.aetas.android.smscode.exception.LoadingDatabaseFailedException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,6 +17,8 @@ import java.io.*;
 import java.util.List;
 
 public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
+
+    private final Context context;
 
     public static final String TABLE_SENDERS = "senders";
     public static final String COL_SENDER_NAME = "name";
@@ -37,12 +41,11 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
             "    PRIMARY KEY (sender_name, type)," +
             "    FOREIGN KEY (sender_name) REFERENCES sender(name)" +
             ");";
-
     private static final String FAILED_TO_LOAD_XML_TO_DB_MESSAGE = "Failed to load SMS data to database";
-    private static final String SMS_DATA_XML_FILE_PATH = "res/raw/sms_data.xml";
 
     public SMSCodeReaderSQLiteHelper(final Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -64,7 +67,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
 
     private void copyDataToDatabase(final SQLiteDatabase db) {
         try {
-            FileInputStream xmlDataFileInputStream = new FileInputStream(SMS_DATA_XML_FILE_PATH);
+            InputStream xmlDataFileInputStream = context.getResources().openRawResource(R.raw.sms_data);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             SendersXmlDataReader sendersXmlDataReader = new SendersXmlDataReader(documentBuilder);
