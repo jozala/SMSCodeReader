@@ -24,7 +24,7 @@
             </message>
         </messages>
     </sender>
-    <sender name="Alior Sync" display-name="Alior Sync">
+    <sender name="TM Bankowe" display-name="T-Mobile Usługi Bankowe">
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>

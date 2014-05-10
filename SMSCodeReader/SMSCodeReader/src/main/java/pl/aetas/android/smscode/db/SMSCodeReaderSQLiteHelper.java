@@ -1,7 +1,6 @@
 package pl.aetas.android.smscode.db;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -13,7 +12,9 @@ import pl.aetas.android.smscode.exception.LoadingDatabaseFailedException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
@@ -28,7 +29,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public static final String COL_REGEXP_EXPRESSION = "expression";
     public static final String COL_REGEXP_RELEVANT_GROUP_NUMBER = "relevant_group_number";
     private static final String DATABASE_NAME = "smscodereader.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String CREATE_TABLE_SENDERS = "CREATE TABLE senders (" +
             "    name TEXT PRIMARY KEY," +
             "    official_name TEXT NOT NULL" +
