@@ -279,4 +279,14 @@
             </message>
         </messages>
     </sender>
+    <sender name="MeritumBank" display-name="Meritum Bank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(:\s)(\d{6})\.$</expression>
+                <test-data>
+                    <test-message expected-code="938475">! 2014.03.31 22:27 Przelew na rachunek: 1111……3362, kwota: 230 PLN, 20140331001, kod nr 1: 938475.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
