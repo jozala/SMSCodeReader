@@ -263,4 +263,20 @@
             </message>
         </messages>
     </sender>
+    <sender name="plusbank24" display-name="Plus Bank">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(has.o:)(\d{8})$</expression>
+                <test-data>
+                    <test-message expected-code="30220142">operacja nr 1
+                        z dnia 2014-05-01
+                        Przelew
+                        z rach:17…660220660
+                        na rach:94…01191405
+                        kwota: 10,00 PLN
+                        hasło:30220142</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
