@@ -247,4 +247,20 @@
             </message>
         </messages>
     </sender>
+    <sender name="226922484" display-name="City Handlowy">
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Kod:)(\d*)[^0-9].*</expression>
+                <test-data>
+                    <test-message expected-code="770467">Aktywacja operacji. Kod:770467
+                        Operacja: Przepiecie karty i/lub zmiana limitów
+                        Czas: 01/05/2014 06:50
+                        Citi Handlowy</test-message>
+                    <test-message expected-code="6173010">Autoryzacja transakcji.
+                        Kod:6173010.
+                        Citi Handlowy</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
