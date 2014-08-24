@@ -12,8 +12,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
@@ -118,6 +120,30 @@ public class SendersXmlDataReaderTest {
         assertThat(senderMessages.get(1).getType(), is("type EN"));
         assertThat(senderMessages.get(1).getRegexp(), is(".*(code: )(\\d{8})(\\s?).*"));
         assertThat(senderMessages.get(1).getRelevantGroup(), is(1));
+    }
+
+    @Test
+    public void shouldReadAllSenderIdsWhenThereAreMultipleSenderIdsForTheSender() throws Exception {
+        String xml = "<senders>" +
+                "   <sender display-name=\"DisplayName\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>test1SenderName</sender-id>" +
+                "            <sender-id>test2SenderName</sender-id>" +
+                "            <sender-id>test3SenderName</sender-id>" +
+                "            <sender-id>test4SenderName</sender-id>" +
+                "        </sender-ids>" +
+                "        <messages>\n" +
+                "            <message type=\"type 123\">\n" +
+                "                <expression relevant-group-number=\"3\">.*(\\s?)(\\d{6})$</expression>\n" +
+                "            </message>\n" +
+                "        </messages>\n" +
+                "    </sender>\n" +
+                "</senders>";
+
+        InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
+        List<SendersXmlDataReader.SenderData> sendersData = sendersXmlDataReader.loadSendersDataFromXml(xmlInputStream);
+        Set<String> senderIds = sendersData.get(0).getSenderIds();
+        assertThat(senderIds, containsInAnyOrder("test1SenderName", "test2SenderName", "test3SenderName", "test4SenderName"));
     }
 
     @Test(expected = IllegalStateException.class)
