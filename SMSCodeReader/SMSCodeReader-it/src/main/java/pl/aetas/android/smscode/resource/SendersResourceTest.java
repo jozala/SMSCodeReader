@@ -55,8 +55,8 @@ public class SendersResourceTest extends AndroidTestCase {
         assertFalse(regularExpressions.checkIfBodyContainsCode("Unsupported format 371263 bla bla bla. Happy Dropboxing!"));
     }
 
-    public void testShouldReadMultipleSenderIdsFromDatabaseWhenGettingSingleSenderByDisplayName() throws Exception {
-        Sender dropboxSender = sendersResource.getSenderByDisplayName("Dropbox");
+    public void testShouldReadMultipleSenderIdsFromDatabaseWhenGettingSingleSenderBySenderId() throws Exception {
+        Sender dropboxSender = sendersResource.getSenderBySenderId("+15105647313");
 
         Set<String> senderIds = dropboxSender.getSenderIds();
 
@@ -67,8 +67,8 @@ public class SendersResourceTest extends AndroidTestCase {
         assertTrue(senderIds.containsAll(expectedSenderIds));
     }
 
-    public void testShouldReadMultipleSenderRegularExpressionFromDatabaseWhenGettingSingleSenderByDisplayName() throws Exception {
-        Sender dropboxSender = sendersResource.getSenderByDisplayName("Dropbox");
+    public void testShouldReadMultipleSenderRegularExpressionFromDatabaseWhenGettingSingleSenderBySenderId() throws Exception {
+        Sender dropboxSender = sendersResource.getSenderBySenderId("+15105647313");
 
         CodesRegularExpressions regularExpressions = dropboxSender.getCodesRegularExpressions();
 
@@ -86,9 +86,10 @@ public class SendersResourceTest extends AndroidTestCase {
         assertTrue(sendersResource.isSenderKnown("+15107882753"));
     }
 
-    public void testShouldIgnoreCaseWhenLookingForCustomerByDisplayName() throws Exception {
-        Sender dropboxSender = sendersResource.getSenderByDisplayName("dRoPboX");
-        assertNotNull(dropboxSender);
+    public void testShouldIgnoreCaseWhenLookingForCustomerBySenderId() throws Exception {
+        assertNotNull(sendersResource.getSenderBySenderId("TM Bankowe"));
+        assertNotNull(sendersResource.getSenderBySenderId("tm bankowe"));
+        assertNotNull(sendersResource.getSenderBySenderId("tm baNkOWE"));
     }
 
     public void testShouldIgnoreCaseWhenCheckingIfSenderIsKnown() throws Exception {

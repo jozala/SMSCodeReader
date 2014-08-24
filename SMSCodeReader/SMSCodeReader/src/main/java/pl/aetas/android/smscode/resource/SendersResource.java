@@ -39,14 +39,18 @@ public class SendersResource {
         return numberOfSendersWithGivenId > 0;
     }
 
-    public Sender getSenderByDisplayName(String senderDisplayName) throws UnknownSenderException {
-        final SQLiteDatabase database = dbHelper.getReadableDatabase();
+    public Sender getSenderBySenderId(String senderId) throws UnknownSenderException {
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
 
-        Set<String> senderIds = fetchSenderIds(senderDisplayName, database);
-        CodesRegularExpressions codesRegularExpressions = fetchRegularExpressions(senderDisplayName, database);
+        Cursor displayNameCursor = database.query(TABLE_SENDERS_IDS, new String[] {COL_SENDERS_IDS_DISPLAY_NAME}, COL_SENDERS_IDS_SENDER_ID + "='" + senderId + "' COLLATE NOCASE", null, null, null, null);
+        displayNameCursor.moveToFirst();
+        String displayName = displayNameCursor.getString(0);
+
+        Set<String> senderIds = fetchSenderIdsByDisplayName(displayName, database);
+        CodesRegularExpressions codesRegularExpressions = fetchRegularExpressions(displayName, database);
         database.close();
 
-        return new Sender(senderDisplayName, senderIds, codesRegularExpressions);
+        return new Sender(displayName, senderIds, codesRegularExpressions);
     }
 
     public List<Sender> getAllSenders() {
@@ -57,7 +61,7 @@ public class SendersResource {
         while (!sendersCursor.isAfterLast()) {
             final String senderDisplayName = sendersCursor.getString(sendersCursor.getColumnIndexOrThrow(COL_SENDER_DISPLAY_NAME));
 
-            Set<String> senderIds = fetchSenderIds(senderDisplayName, db);
+            Set<String> senderIds = fetchSenderIdsByDisplayName(senderDisplayName, db);
             CodesRegularExpressions codesRegularExpressions = fetchRegularExpressions(senderDisplayName, db);
             Sender sender = new Sender(senderDisplayName, senderIds, codesRegularExpressions);
             allSenders.add(sender);
@@ -68,12 +72,12 @@ public class SendersResource {
         return allSenders;
     }
 
-    private Set<String> fetchSenderIds(String displayName, SQLiteDatabase database) {
+    private Set<String> fetchSenderIdsByDisplayName(String displayName, SQLiteDatabase database) {
         String[] sendersIdsColumns = {COL_SENDERS_IDS_SENDER_ID};
         Cursor sendersIdsCursor = database.query(TABLE_SENDERS_IDS, sendersIdsColumns, COL_SENDERS_IDS_DISPLAY_NAME + "='" + displayName + "' COLLATE NOCASE", null, null, null, null);
         if (sendersIdsCursor.getCount() < 1) {
             Log.e(SendersResource.class, "No sender IDs (caller IDs) found in DB for known Sender: " + displayName);
-            throw new NoSenderIdsForKnownSenderException("No codes for sender " + displayName + " found");
+            throw new NoSenderIdsForKnownSenderException("No sender IDs (caller IDs) found for sender: " + displayName + " found");
         }
         sendersIdsCursor.moveToFirst();
 
