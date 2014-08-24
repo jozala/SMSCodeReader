@@ -61,7 +61,7 @@ public class SMSInfoPresenter {
     }
 
     public void presentInfoToUser(String code) {
-        if (!isSenderActiveInPreferences(sender.getSenderName())) {
+        if (!isSenderActiveInPreferences(sender.getOfficialName())) {
             return;
         }
         if (automaticallyCopySMSCode) {
@@ -77,9 +77,9 @@ public class SMSInfoPresenter {
         }
     }
 
-    private boolean isSenderActiveInPreferences(final String senderName) {
+    private boolean isSenderActiveInPreferences(String senderOfficialName) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getBoolean(senderName, true);
+        return preferences.getBoolean(senderOfficialName, true);
     }
 
     private String prepareUserMessage(final String code) {

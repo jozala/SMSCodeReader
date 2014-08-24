@@ -6,7 +6,7 @@
     <parent>
         <groupId>pl.aetas.android.smscode</groupId>
         <artifactId>SMSCodeReader-parent</artifactId>
-        <version>1.8</version>
+        <version>1.9-SNAPSHOT</version>
     </parent>
 
     <artifactId>SMSCodeReader</artifactId>
@@ -18,6 +18,8 @@
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
+            <version>${platform.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Logging -->
@@ -53,29 +55,15 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>3.8.2</version>
-                <configuration>
-                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-                    <assetsDirectory>${project.basedir}/assets</assetsDirectory>
-                    <resourceDirectory>${project.basedir}/res</resourceDirectory>
-                    <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
-                    <sdk>
-                        <platform>17</platform>
-                    </sdk>
-                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                </configuration>
                 <extensions>true</extensions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

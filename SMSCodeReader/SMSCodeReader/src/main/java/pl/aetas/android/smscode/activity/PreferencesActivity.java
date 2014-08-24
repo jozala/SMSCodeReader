@@ -64,7 +64,7 @@ public class PreferencesActivity extends PreferenceActivity {
         for (Sender sender : allSenders) {
             final CheckBoxPreference senderCheckBoxPreference = new CheckBoxPreference(this);
             senderCheckBoxPreference.setTitle(sender.getOfficialName());
-            senderCheckBoxPreference.setKey(sender.getSenderName());
+            senderCheckBoxPreference.setKey(sender.getOfficialName());
             senderCheckBoxPreference.setDefaultValue(true);
             senderCheckBoxPreference.setEnabled(true);
             sendersPreferences.add(senderCheckBoxPreference);

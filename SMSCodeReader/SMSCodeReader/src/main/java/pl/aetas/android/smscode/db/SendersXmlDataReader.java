@@ -8,15 +8,12 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SendersXmlDataReader {
 
     public static final String SENDER_XML_TAG = "sender";
-    public static final String SENDER_NAME_XML_ATTRIBUTE = "name";
+    public static final String SENDER_ID_XML_TAG = "sender-id";
     public static final String SENDER_DISPLAY_NAME_XML_ATTRIBUTE = "display-name";
     public static final String MESSAGE_XML_TAG = "message";
     public static final String EXPRESSION_XML_TAG = "expression";
@@ -42,26 +39,37 @@ public class SendersXmlDataReader {
         for (int sendersIndex = 0; sendersIndex < senderNodes.getLength(); sendersIndex++) {
             Element senderElement = (Element) senderNodes.item(sendersIndex);
             SenderData sender = createSenderData(senderElement);
-            List<MessageData> messages = getSendersMessagesFromSenderNode(senderElement);
-            if (messages.size() == 0) {
-                throw new IllegalStateException("No messages data found in XML for sender: " + sender.getName());
+            Set<String> senderIds = getSenderIdsFromSenderNode(senderElement);
+            if (senderIds.isEmpty()) {
+                throw new IllegalStateException("No sender id found in XML data for sender: " + sender.getDisplayName());
             }
+            List<MessageData> messages = getSendersMessagesFromSenderNode(senderElement);
+            if (messages.isEmpty()) {
+                throw new IllegalStateException("No messages data found in XML for sender: " + sender.getDisplayName());
+            }
+            sender.setSenderIds(senderIds);
             sender.addMessages(messages);
             senders.add(sender);
         }
         return senders;
     }
 
+    private Set<String> getSenderIdsFromSenderNode(Element senderElement) {
+        Set<String> ids = new HashSet<String>();
+        NodeList idsNodes = senderElement.getElementsByTagName(SENDER_ID_XML_TAG);
+        for (int senderIdIndex = 0; senderIdIndex < idsNodes.getLength(); senderIdIndex++) {
+            Element idElement = (Element) idsNodes.item(senderIdIndex);
+            ids.add(idElement.getTextContent());
+        }
+        return ids;
+    }
+
     private SenderData createSenderData(Element senderElement) {
-        String senderName = senderElement.getAttribute(SENDER_NAME_XML_ATTRIBUTE);
         String senderDisplayName = senderElement.getAttribute(SENDER_DISPLAY_NAME_XML_ATTRIBUTE);
-        if (senderName.equals("")) {
-            throw new IllegalStateException("Sender name has to be specified. Application XML data are incorrect!");
-        }
         if (senderDisplayName.equals("")) {
-            throw new IllegalStateException("Sender (" + senderName + ") display name has to be specified. Application XML data are incorrect!");
+            throw new IllegalStateException("Sender display name has to be specified. Application XML data are incorrect!");
         }
-        return new SenderData(senderName, senderDisplayName);
+        return new SenderData(senderDisplayName);
     }
 
     private List<MessageData> getSendersMessagesFromSenderNode(Element senderElement) {
@@ -88,14 +96,15 @@ public class SendersXmlDataReader {
     }
 
     public static class SenderData {
-        private final String name;
+        private final Set<String> senderIds;
         private final String displayName;
         private final List<MessageData> messagesData;
 
-        public SenderData(String name, String displayName) {
-            this.name = name;
+        public SenderData(String displayName) {
+            this.senderIds = new HashSet<String>();
             this.displayName = displayName;
             messagesData = new LinkedList<MessageData>();
+
         }
 
         public void addMessages(Collection<MessageData> messages) {
@@ -106,12 +115,17 @@ public class SendersXmlDataReader {
             return Collections.unmodifiableList(messagesData);
         }
 
-        public String getName() {
-            return name;
-        }
-
         public String getDisplayName() {
             return displayName;
+        }
+
+        public Set<String> getSenderIds() {
+            return Collections.unmodifiableSet(senderIds);
+        }
+
+        public void setSenderIds(Collection<String> senderIds) {
+            this.senderIds.clear();
+            this.senderIds.addAll(senderIds);
         }
     }
 

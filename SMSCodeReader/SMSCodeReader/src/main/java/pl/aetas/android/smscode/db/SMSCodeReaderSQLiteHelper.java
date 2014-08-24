@@ -17,30 +17,40 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static pl.aetas.android.smscode.db.SendersXmlDataReader.MessageData;
+import static pl.aetas.android.smscode.db.SendersXmlDataReader.SenderData;
+
 public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
 
     private final Context context;
 
     public static final String TABLE_SENDERS = "senders";
-    public static final String COL_SENDER_NAME = "name";
-    public static final String COL_SENDER_OFFICIAL_NAME = "official_name";
+    public static final String COL_SENDER_DISPLAY_NAME = "display_name";
+    public static final String TABLE_SENDERS_IDS = "senders_ids";
+    public static final String COL_SENDERS_IDS_DISPLAY_NAME = "display_name";
+    public static final String COL_SENDERS_IDS_SENDER_ID = "sender_id";
     public static final String TABLE_REGULAR_EXPRESSIONS = "regular_expressions";
-    public static final String COL_REGEXP_SENDER_NAME = "sender_name";
+    public static final String COL_REGEXP_SENDER_DISPLAY_NAME = "display_name";
     public static final String COL_REGEXP_EXPRESSION = "expression";
     public static final String COL_REGEXP_RELEVANT_GROUP_NUMBER = "relevant_group_number";
     private static final String DATABASE_NAME = "smscodereader.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String CREATE_TABLE_SENDERS = "CREATE TABLE senders (" +
-            "    name TEXT PRIMARY KEY," +
-            "    official_name TEXT NOT NULL" +
+            "    display_name TEXT PRIMARY KEY" +
+            ");";
+    private static final String CREATE_TABLE_SENDERS_IDS = "CREATE TABLE senders_ids (" +
+            "    display_name TEXT NOT NULL," +
+            "    sender_id TEXT NOT NULL," +
+            "    PRIMARY KEY (display_name, sender_id)," +
+            "    FOREIGN KEY (display_name) REFERENCES sender(display_name)" +
             ");";
     private static final String CREATE_TABLE_REGEXP = "CREATE TABLE regular_expressions (" +
-            "    sender_name TEXT NOT NULL," +
+            "    display_name TEXT NOT NULL," +
             "    type TEXT NOT NULL," +
             "    expression TEXT NOT NULL," +
             "    relevant_group_number INTEGER NOT NULL," +
-            "    PRIMARY KEY (sender_name, type)," +
-            "    FOREIGN KEY (sender_name) REFERENCES sender(name)" +
+            "    PRIMARY KEY (display_name, type)," +
+            "    FOREIGN KEY (display_name) REFERENCES sender(display_name)" +
             ");";
     private static final String FAILED_TO_LOAD_XML_TO_DB_MESSAGE = "Failed to load SMS data to database";
 
@@ -53,6 +63,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(final SQLiteDatabase db) {
         Log.i(SMSCodeReaderSQLiteHelper.class, "Creating database with SMS Codes");
         db.execSQL(CREATE_TABLE_SENDERS);
+        db.execSQL(CREATE_TABLE_SENDERS_IDS);
         db.execSQL(CREATE_TABLE_REGEXP);
         copyDataToDatabase(db);
     }
@@ -61,6 +72,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         Log.w(SMSCodeReaderSQLiteHelper.class, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data.");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENDERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENDERS_IDS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGULAR_EXPRESSIONS);
         onCreate(db);
     }
@@ -72,12 +84,16 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             SendersXmlDataReader sendersXmlDataReader = new SendersXmlDataReader(documentBuilder);
-            List<SendersXmlDataReader.SenderData> senders = sendersXmlDataReader.loadSendersDataFromXml(xmlDataFileInputStream);
-            for (SendersXmlDataReader.SenderData sender : senders) {
-                db.execSQL("INSERT INTO senders VALUES(?,?);", new String[] {sender.getName(), sender.getDisplayName()});
-                for (SendersXmlDataReader.MessageData message : sender.getMessages()) {
+            List<SenderData> senders = sendersXmlDataReader.loadSendersDataFromXml(xmlDataFileInputStream);
+            for (SenderData sender : senders) {
+                db.execSQL("INSERT INTO senders VALUES(?);", new String[] {sender.getDisplayName()});
+                for (String senderId : sender.getSenderIds()) {
+                    db.execSQL("INSERT INTO senders_ids VALUES(?,?);",
+                            new Object[] {sender.getDisplayName(), senderId});
+                }
+                for (MessageData message : sender.getMessages()) {
                     db.execSQL("INSERT INTO regular_expressions VALUES(?,?,?,?);",
-                            new Object[] {sender.getName(), message.getType(), message.getRegexp(), message.getRelevantGroup()});
+                            new Object[] {sender.getDisplayName(), message.getType(), message.getRegexp(), message.getRelevantGroup()});
                 }
             }
 
@@ -97,8 +113,8 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
     }
 
     public Cursor fetchAllSenders(final SQLiteDatabase db) {
-        final String[] sendersColumns = {COL_SENDER_NAME, COL_SENDER_OFFICIAL_NAME};
+        final String[] sendersColumns = {COL_SENDER_DISPLAY_NAME};
 
-        return db.query(TABLE_SENDERS, sendersColumns, null, null, null, null, "LOWER(" + COL_SENDER_OFFICIAL_NAME + ")");
+        return db.query(TABLE_SENDERS, sendersColumns, null, null, null, null, "LOWER(" + COL_SENDER_DISPLAY_NAME + ")");
     }
 }

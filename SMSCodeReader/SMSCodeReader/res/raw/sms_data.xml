@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <senders>
-    <sender name="3388" display-name="mBank">
+    <sender display-name="mBank">
+        <sender-ids>
+            <sender-id>3388</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(haslo: )(\d{8})(\s?).*</expression>
@@ -12,7 +15,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="Alior Bank" display-name="Alior Bank">
+    <sender display-name="Alior Bank">
+        <sender-ids>
+            <sender-id>Alior Bank</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
@@ -24,7 +30,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="TM Bankowe" display-name="T-Mobile Usługi Bankowe">
+    <sender display-name="T-Mobile Usługi Bankowe">
+        <sender-ids>
+            <sender-id>TM Bankowe</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
@@ -35,7 +44,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="BZWBK24" display-name="BZWBK24">
+    <sender display-name="BZWBK24">
+        <sender-ids>
+            <sender-id>BZWBK24</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">[\s\S]*(smsKod: )(\d{8})[\s\S]*</expression>
@@ -48,7 +60,11 @@
             </message>
         </messages>
     </sender>
-    <sender name="PKOBP" display-name="iPKO">
+    <sender display-name="iPKO">
+        <sender-ids>
+            <sender-id>PKOBP</sender-id>
+            <sender-id>PKO BP</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
@@ -59,18 +75,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="PKO BP" display-name="iPKO">
-        <messages>
-            <message type="general">
-                <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
-                <test-data>
-                    <test-message expected-code="560409">23-10-2012 20:32; Przelew na rachunek 23..1903; Kwota: 54.00 PLN; Kod SMS nr 2: 560409</test-message>
-                    <test-message expected-code="252541">14-11-2012 21:58; Przelew do ZUS; Kwota: 674.88 PLN; Kod SMS nr 4: 252541</test-message>
-                </test-data>
-            </message>
-        </messages>
-    </sender>
-    <sender name="ING" display-name="ING">
+    <sender display-name="ING">
+        <sender-ids>
+            <sender-id>ING</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?to: )(\S+)(\s?).*</expression>
@@ -82,7 +90,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="Inteligo" display-name="Inteligo">
+    <sender display-name="Inteligo">
+        <sender-ids>
+            <sender-id>Inteligo</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
@@ -94,7 +105,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="HasloSMS" display-name="Millennium">
+    <sender display-name="Millennium">
+        <sender-ids>
+            <sender-id>HasloSMS</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(HasloSMS: )(\d{6})$</expression>
@@ -105,7 +119,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="3003" display-name="MultiBank">
+    <sender display-name="MultiBank">
+        <sender-ids>
+            <sender-id>3003</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(haslo: )(\d{8})(\s?).*</expression>
@@ -115,7 +132,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="Walutomat" display-name="Walutomat">
+    <sender display-name="Walutomat">
+        <sender-ids>
+            <sender-id>Walutomat</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(\s?)(\d{6})$</expression>
@@ -125,7 +145,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="BGZOptima" display-name="BGZ Optima">
+    <sender display-name="BGZ Optima">
+        <sender-ids>
+            <sender-id>BGZOptima</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(Haslo: )(\d{8})$</expression>
@@ -134,10 +157,12 @@
                     <test-message expected-code="65905217">BGZOptima operacja nr 2 z dn. 27.05.2013 Przelew na kwote 1,00 PLN. Haslo: 65905217</test-message>
                 </test-data>
             </message>
-
         </messages>
     </sender>
-    <sender name="Bank BGZ" display-name="Bank BGZ">
+    <sender display-name="Bank BGZ">
+        <sender-ids>
+            <sender-id>Bank BGZ</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(kod: )(\d{8}).*</expression>
@@ -164,7 +189,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="Pocztowy" display-name="Bank Pocztowy">
+    <sender display-name="Bank Pocztowy">
+        <sender-ids>
+            <sender-id>Pocztowy</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(Kod: )(\d{6}).*</expression>
@@ -174,7 +202,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="DB PBC" display-name="Deutsche Bank">
+    <sender display-name="Deutsche Bank">
+        <sender-ids>
+            <sender-id>DB PBC</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(Haslo: )(\d{8})$</expression>
@@ -184,7 +215,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="Google" display-name="Google">
+    <sender display-name="Google">
+        <sender-ids>
+            <sender-id>Google</sender-id>
+        </sender-ids>
         <messages>
             <message type="2-step verification PL">
                 <expression relevant-group-number="2">.*(Google to )(\d{6}).*</expression>
@@ -200,7 +234,11 @@
             </message>
         </messages>
     </sender>
-    <sender name="+15105647313" display-name="Dropbox">
+    <sender display-name="Dropbox">
+        <sender-ids>
+            <sender-id>+15105647313</sender-id>
+            <sender-id>+15107882753</sender-id>
+        </sender-ids>
         <messages>
             <message type="2-step verification PL">
                 <expression relevant-group-number="2">.*(Kod zabezpieczajacy to )(\d{6}).*</expression>
@@ -216,7 +254,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="IDEA BANK" display-name="IDEA Bank">
+    <sender display-name="IDEA Bank">
+        <sender-ids>
+            <sender-id>IDEA BANK</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(Haslo: )([a-zA-Z0-9]{6})$</expression>
@@ -226,7 +267,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="GetinOnline" display-name="Getin Bank">
+    <sender display-name="Getin Bank">
+        <sender-ids>
+            <sender-id>GetinOnline</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">[\s\S]*(Haslo nr[0-9]*: )([a-zA-Z0-9]{6})$</expression>
@@ -237,7 +281,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="PLAY24" display-name="Play24">
+    <sender display-name="Play24">
+        <sender-ids>
+            <sender-id>PLAY24</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">[\s\S]*(Jednorazowe haslo SMS: )([0-9]{4})[\s\S]*</expression>
@@ -247,7 +294,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="226922484" display-name="City Handlowy">
+    <sender display-name="City Handlowy">
+        <sender-ids>
+            <sender-id>226922484</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(Kod:)(\d*)[^0-9].*</expression>
@@ -263,7 +313,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="plusbank24" display-name="Plus Bank">
+    <sender display-name="Plus Bank">
+        <sender-ids>
+            <sender-id>plusbank24</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(has.o:)(\d{8})$</expression>
@@ -279,7 +332,10 @@
             </message>
         </messages>
     </sender>
-    <sender name="MeritumBank" display-name="Meritum Bank">
+    <sender display-name="Meritum Bank">
+        <sender-ids>
+            <sender-id>MeritumBank</sender-id>
+        </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="2">.*(:\s)(\d{6})\.$</expression>

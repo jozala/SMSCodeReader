@@ -35,14 +35,20 @@ public class SendersXmlDataReaderTest {
     @Test
     public void shouldReadAllSendersWhenThereAreMultipleSendersInTheXmlInputStream() throws Exception {
         String xml = "<senders>" +
-                "   <sender name=\"testSenderName\" display-name=\"DisplayName\">\n" +
+                "   <sender display-name=\"DisplayName\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>testSenderName</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "            <message type=\"type PL\">\n" +
                 "                <expression relevant-group-number=\"2\">.*(haslo: )(\\d{8})(\\s?).*</expression>\n" +
                 "            </message>\n" +
                 "        </messages>\n" +
                 "    </sender>\n" +
-                "    <sender name=\"second sender\" display-name=\"Display name of second sender\">\n" +
+                "    <sender display-name=\"Display name of second sender\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>second sender</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "            <message type=\"type 123\">\n" +
                 "                <expression relevant-group-number=\"3\">.*(\\s?)(\\d{6})$</expression>\n" +
@@ -54,33 +60,19 @@ public class SendersXmlDataReaderTest {
         InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
         List<SendersXmlDataReader.SenderData> sendersData = sendersXmlDataReader.loadSendersDataFromXml(xmlInputStream);
         assertThat(sendersData, hasSize(2));
-        assertThat(sendersData.get(0).getName(), is("testSenderName"));
+        assertThat(sendersData.get(0).getSenderIds().iterator().next(), is("testSenderName"));
         assertThat(sendersData.get(0).getDisplayName(), is("DisplayName"));
-        assertThat(sendersData.get(1).getName(), is("second sender"));
+        assertThat(sendersData.get(1).getSenderIds().iterator().next(), is("second sender"));
         assertThat(sendersData.get(1).getDisplayName(), is("Display name of second sender"));
-    }
-
-    @Test
-    public void shouldReadSenderNameAndDisplayNameFromGivenInputStream() throws Exception {
-        String xml = "<senders>" +
-                "    <sender name=\"some sender name\" display-name=\"sender display name\">\n" +
-                "        <messages>\n" +
-                "            <message type=\"type 123\">\n" +
-                "                <expression relevant-group-number=\"3\">.*(\\s?)(\\d{6})$</expression>\n" +
-                "            </message>\n" +
-                "        </messages>\n" +
-                "    </sender>" +
-                "</senders>";
-        InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
-        List<SendersXmlDataReader.SenderData> senders = sendersXmlDataReader.loadSendersDataFromXml(xmlInputStream);
-        assertThat(senders.get(0).getName(), is("some sender name"));
-        assertThat(senders.get(0).getDisplayName(), is("sender display name"));
     }
 
     @Test
     public void shouldReadMessagesOfSenderFromGivenXmlInputSource() throws Exception {
         String xml = "<senders>" +
-                "    <sender name=\"some sender name\" display-name=\"sender display name\">\n" +
+                "    <sender display-name=\"sender display name\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>some sender name</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "            <message type=\"type 123\">\n" +
                 "                <expression relevant-group-number=\"3\">.*(\\s?)(\\d{6})$</expression>\n" +
@@ -99,9 +91,12 @@ public class SendersXmlDataReaderTest {
     }
 
     @Test
-    public void shouldReadAllSendersWhenThereAreMultipleMessagesForTheSender() throws Exception {
+    public void shouldReadAllMessagesWhenThereAreMultipleMessagesForTheSender() throws Exception {
         String xml = "<senders>" +
-                "   <sender name=\"testSenderName\" display-name=\"DisplayName\">\n" +
+                "   <sender display-name=\"DisplayName\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>testSenderName</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "            <message type=\"type PL\">\n" +
                 "                <expression relevant-group-number=\"2\">.*(haslo: )(\\d{8})(\\s?).*</expression>\n" +
@@ -128,7 +123,10 @@ public class SendersXmlDataReaderTest {
     @Test(expected = IllegalStateException.class)
     public void shouldThrowExceptionWhenNoMessagesForSenderInTheXml() throws Exception {
         String xml = "<senders>" +
-                "    <sender name=\"some sender name\" display-name=\"sender display name\">\n" +
+                "    <sender display-name=\"sender display name\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>some sender name</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "        </messages>\n" +
                 "    </sender>" +
@@ -139,7 +137,7 @@ public class SendersXmlDataReaderTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void shouldThrowExceptionWhenSenderNameIsNotSpecified() throws Exception {
+    public void shouldThrowExceptionWhenNoSenderIdIsSpecified() throws Exception {
         String xml = "<senders>" +
                 "    <sender display-name=\"sender display name\">\n" +
                 "        <messages>\n" +
@@ -157,7 +155,10 @@ public class SendersXmlDataReaderTest {
     @Test(expected = IllegalStateException.class)
     public void shouldThrowExceptionWhenSenderDisplayNameIsNotSpecified() throws Exception {
         String xml = "<senders>" +
-                "    <sender name=\"some sender name\">\n" +
+                "    <sender>\n" +
+                "        <sender-ids>" +
+                "            <sender-id>some sender name</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "            <message type=\"type 123\">\n" +
                 "                <expression relevant-group-number=\"3\">.*(\\s?)(\\d{6})$</expression>\n" +
@@ -173,7 +174,10 @@ public class SendersXmlDataReaderTest {
     @Test(expected = IllegalStateException.class)
     public void shouldThrowExceptionWhenRelevantGroupNumberNotSpecifiedForExpressionInXml() throws Exception {
         String xml = "<senders>" +
-                "    <sender name=\"some sender name\" display-name=\"sender display name\">\n" +
+                "    <sender display-name=\"sender display name\">\n" +
+                "        <sender-ids>" +
+                "            <sender-id>some sender name</sender-id>" +
+                "        </sender-ids>" +
                 "        <messages>\n" +
                 "            <message type=\"type 123\">\n" +
                 "                <expression>.*(\\s?)(\\d{6})$</expression>\n" +

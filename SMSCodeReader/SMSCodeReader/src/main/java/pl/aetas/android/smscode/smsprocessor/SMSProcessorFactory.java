@@ -57,6 +57,6 @@ public final class SMSProcessorFactory {
     }
 
     private Sender retrieveSender(final SendersResource sendersResource, final String senderName) throws UnknownSenderException {
-        return sendersResource.getSenderByName(senderName);
+        return sendersResource.getSenderByDisplayName(senderName);
     }
 }
