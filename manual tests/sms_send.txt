@@ -1,1 +1,6 @@
-sms send 226922484 Aktywacja operacji. Kod:770467\nOperacja: Przepiecie karty i/lub zmiana limitów\nCzas: 01/05/2014 06:50\nCiti Handlowy
+telnet localhost 5554
+
+sms send 226922484 Aktywacja operacji. Kod:770467\nOperacja: Przepiecie karty i/lub zmiana limitów\nCzas: 01/05/2014 
+06:50\nCiti Handlowy
+
+sms send +48588880888 ! 2014.03.31 22:27 Przelew na rachunek: 1111...3362, kwota: 230 PLN, 20140331001, kod nr 1: 938475.
