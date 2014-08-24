@@ -40,8 +40,7 @@ public class SMSCodeReaderSQLiteHelper extends SQLiteOpenHelper {
             ");";
     private static final String CREATE_TABLE_SENDERS_IDS = "CREATE TABLE senders_ids (" +
             "    display_name TEXT NOT NULL," +
-            "    sender_id TEXT NOT NULL," +
-            "    PRIMARY KEY (display_name, sender_id)," +
+            "    sender_id TEXT PRIMARY KEY," +
             "    FOREIGN KEY (display_name) REFERENCES sender(display_name)" +
             ");";
     private static final String CREATE_TABLE_REGEXP = "CREATE TABLE regular_expressions (" +
