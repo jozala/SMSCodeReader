@@ -347,4 +347,19 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Credit Agricole">
+        <sender-ids>
+            <sender-id>ca24</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="1">.*:\s(\d{8})\.\s.*</expression>
+                <test-data>
+                    <test-message expected-code="64551434">Haslo nr 1 z dnia 2014-05-04: 64551434. Zmiana hasla dostepu. Credit Agricole.</test-message>
+                    <test-message expected-code="78450347">Haslo nr 1 z dnia 2014-05-06: 78450347. Przelew zwykly Kwota 50,00 PLN. Credit Agricole.</test-message>
+                    <test-message expected-code="46019795">Haslo nr 1 z dnia 2014-05-16: 46019795. Przelew zwykly z 554425940000 na 9810...1813 Kwota 47,89 PLN Oplata abonamento. Credit Agricole.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
