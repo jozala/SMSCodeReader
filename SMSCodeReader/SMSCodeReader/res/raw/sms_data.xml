@@ -47,6 +47,7 @@
     <sender display-name="BZWBK24">
         <sender-ids>
             <sender-id>BZWBK24</sender-id>
+            <sender-id>+48661002425</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
@@ -335,6 +336,7 @@
     <sender display-name="Meritum Bank">
         <sender-ids>
             <sender-id>MeritumBank</sender-id>
+            <sender-id>+48588880888</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
