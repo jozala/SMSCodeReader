@@ -43,9 +43,7 @@ public class SendersResource {
         final SQLiteDatabase database = dbHelper.getReadableDatabase();
 
         Set<String> senderIds = fetchSenderIds(senderDisplayName, database);
-        Cursor regularExpressionsCursor = getRegularExpressionsForSender(senderDisplayName, database);
-        CodesRegularExpressions codesRegularExpressions = cursorToCodesRegularExpressions(regularExpressionsCursor);
-        regularExpressionsCursor.close();
+        CodesRegularExpressions codesRegularExpressions = fetchRegularExpressions(senderDisplayName, database);
         database.close();
 
         return new Sender(senderDisplayName, senderIds, codesRegularExpressions);
@@ -60,9 +58,7 @@ public class SendersResource {
             final String senderDisplayName = sendersCursor.getString(sendersCursor.getColumnIndexOrThrow(COL_SENDER_DISPLAY_NAME));
 
             Set<String> senderIds = fetchSenderIds(senderDisplayName, db);
-            final Cursor regularExpressionsForSender = getRegularExpressionsForSender(senderDisplayName, db);
-            final CodesRegularExpressions codesRegularExpressions = cursorToCodesRegularExpressions(regularExpressionsForSender);
-            regularExpressionsForSender.close();
+            CodesRegularExpressions codesRegularExpressions = fetchRegularExpressions(senderDisplayName, db);
             Sender sender = new Sender(senderDisplayName, senderIds, codesRegularExpressions);
             allSenders.add(sender);
             sendersCursor.moveToNext();
@@ -92,18 +88,15 @@ public class SendersResource {
         return senderIds;
     }
 
-    private Cursor getRegularExpressionsForSender(final String displayName, final SQLiteDatabase database) {
+    private CodesRegularExpressions fetchRegularExpressions(String senderDisplayName, SQLiteDatabase database) {
         final String[] regularExpressionsColumns = {COL_REGEXP_EXPRESSION, COL_REGEXP_RELEVANT_GROUP_NUMBER};
-        final Cursor regularExpressionsCursor = database.query(TABLE_REGULAR_EXPRESSIONS, regularExpressionsColumns, COL_REGEXP_SENDER_DISPLAY_NAME + "='" + displayName + "' COLLATE NOCASE", null, null, null, null);
+        final Cursor regularExpressionsCursor = database.query(TABLE_REGULAR_EXPRESSIONS, regularExpressionsColumns, COL_REGEXP_SENDER_DISPLAY_NAME + "='" + senderDisplayName + "' COLLATE NOCASE", null, null, null, null);
         if (regularExpressionsCursor.getCount() < 1) {
-            Log.e(SendersResource.class, "No codes regular expression found in DB for known Sender: " + displayName);
-            throw new NoCodesForKnownSenderException("No codes for sender " + displayName + " found");
+            Log.e(SendersResource.class, "No codes regular expression found in DB for known Sender: " + senderDisplayName);
+            throw new NoCodesForKnownSenderException("No codes for sender " + senderDisplayName + " found");
         }
         regularExpressionsCursor.moveToFirst();
-        return regularExpressionsCursor;
-    }
 
-    private CodesRegularExpressions cursorToCodesRegularExpressions(final Cursor regularExpressionsCursor) {
         final int regexpRelevantGroupNumberColumnIndex = regularExpressionsCursor.getColumnIndexOrThrow(COL_REGEXP_RELEVANT_GROUP_NUMBER);
         final int regexpExpressionColumnIndex = regularExpressionsCursor.getColumnIndexOrThrow(COL_REGEXP_EXPRESSION);
 
@@ -115,6 +108,9 @@ public class SendersResource {
             regularExpressionsCursor.moveToNext();
         }
 
-        return new CodesRegularExpressions(codesRegularExpressionSet);
+        CodesRegularExpressions codesRegularExpressions = new CodesRegularExpressions(codesRegularExpressionSet);
+        regularExpressionsCursor.close();
+        return codesRegularExpressions;
     }
+
 }
