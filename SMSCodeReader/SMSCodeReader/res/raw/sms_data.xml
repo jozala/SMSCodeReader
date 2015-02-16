@@ -41,6 +41,7 @@
                     <test-message expected-code="791269">Zmiana kodu PIN karty platniczej numer 5102 59** **** 9358; Kod SMS nr 33 z dn. 02/03/2014: 791269</test-message>
                     <test-message expected-code="881799">Przelew na rachunek 50..7409; Odbiorca eCard S.A.; Kwota 10,00 PLN; Kod SMS nr 34 z dn. 03/03/2014: 881799</test-message>
                     <test-message expected-code="213655">Zmiana danych osobowych; Kod SMS nr 24 z dn. 15/09/2014: 213655</test-message>
+                    <test-message expected-code="463199">Przelew ZUS; Kwota 1 042,46 PLN; Kod SMS nr 28 z dn. 13/10/2014: 463199</test-message>
                 </test-data>
             </message>
         </messages>
@@ -207,6 +208,7 @@
     <sender display-name="Deutsche Bank">
         <sender-ids>
             <sender-id>DB PBC</sender-id>
+            <sender-id>DB Polska</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
