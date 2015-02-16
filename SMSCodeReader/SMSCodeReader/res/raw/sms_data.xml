@@ -67,6 +67,7 @@
         <sender-ids>
             <sender-id>PKOBP</sender-id>
             <sender-id>PKO BP</sender-id>
+            <sender-id>PKO</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
