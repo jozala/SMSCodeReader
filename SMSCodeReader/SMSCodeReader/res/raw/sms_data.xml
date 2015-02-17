@@ -366,4 +366,18 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Bank SMART">
+        <sender-ids>
+            <sender-id>Bank SMART</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="1">.*Kod SMS: (\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="980529">Operacja nr 1 z dn. 2015-02-17, 19:32. Przelew na rach.: 57...0147. Kwota: 1.00 PLN. Kod SMS: 980529</test-message>
+                    <test-message expected-code="497367">Operacja nr 2 z dn. 2015-02-13, 01:04. Nowa metoda autoryzacji: SMS. Kod SMS: 497367.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
