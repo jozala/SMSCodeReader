@@ -380,4 +380,17 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Orange Finanse">
+        <sender-ids>
+            <sender-id>Orange Fin</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="1">.*haslo: (\d{8})\s?.*</expression>
+                <test-data>
+                    <test-message expected-code="12345678">!Operacja nr 1 z dn. 03-04-2015 Przelew z rachunku.: ...00001111 na rach.: 0000...000011 kwota: 1,00 PLN haslo: 12345678 Orange Fin.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
