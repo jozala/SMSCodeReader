@@ -407,4 +407,18 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Facebook">
+        <sender-ids>
+            <sender-id>FACEBOOK</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="2-step verification PL">
+                <expression relevant-group-number="1">.*(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="133730">Twój kod zabezpieczający do Facebooka: 133730</test-message>
+                    <test-message expected-code="789620">789620 to Twój kod potwierdzający z Facebooka</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
