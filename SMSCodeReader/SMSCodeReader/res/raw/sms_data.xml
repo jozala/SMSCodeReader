@@ -59,6 +59,7 @@
                     <test-message expected-code="17776446">smsKod: 17776446 przelew24 na 10109020530000000109114170 DOTPAY SPOLKA AKCYJNA 35,30 PLN APID=1422512-</test-message>
                     <test-message expected-code="61633987">smsKod: 61633987 dla operacji: logowanie do aplikacji BZWBK24 mobile 09.08.2013 11:02</test-message>
                     <test-message expected-code="39323907">smsKod: 39323907 przelew walutowy na rachunek obcy w BZWBK 18109013460000000111799073 Currency One SA 283,48 EUR 283,48 EUR WX32219WX</test-message>
+                    <test-message expected-code="24992129">smsKod: 24992129 dla operacji: zmiana limitów transakcyjnych 27.03.2015 11.17</test-message>
                 </test-data>
             </message>
         </messages>
@@ -389,6 +390,19 @@
                 <expression relevant-group-number="1">.*haslo: (\d{8})\s?.*</expression>
                 <test-data>
                     <test-message expected-code="12345678">!Operacja nr 1 z dn. 03-04-2015 Przelew z rachunku.: ...00001111 na rach.: 0000...000011 kwota: 1,00 PLN haslo: 12345678 Orange Fin.</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
+    <sender display-name="Eurobank">
+        <sender-ids>
+            <sender-id>eurobank</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*:(\s?)(\d{6})$</expression>
+                <test-data>
+                    <test-message expected-code="123456">Operacja: Przelew z konta 0000....0000 na konto 0000....0000 dla Imię Nazwisko kwota 0,00 PLN; hasło SMS nr 1 z dn. 01-07-2015: 123456</test-message>
                 </test-data>
             </message>
         </messages>
