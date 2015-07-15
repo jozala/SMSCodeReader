@@ -194,6 +194,32 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="BGZ BNP Paribas">
+        <sender-ids>
+            <sender-id>BGZ BNPP</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(kod: )(\d{8}).*</expression>
+                <test-data>
+                    <test-message expected-code="77163162">Operacja nr 1 z dn. 2015-07-06
+                        Przelew z rach.: 12345678
+                        na rach.: 1111...123456
+                        tyt.: Zamowienie nr 7
+                        kwota: 41,00 PLN
+                        kod: 77163162
+                        BGZ BNPP</test-message>
+                    <test-message expected-code="29348474">Operacja nr 1 z dn. 2015-07-12
+                        Przelew z rach.: 12345678
+                        na rach.: 1111...123456
+                        tyt.: DNMXPLAUH
+                        kwota: 47,98 PLN
+                        kod: 29348474
+                        BGZ BNPP</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
     <sender display-name="Bank Pocztowy">
         <sender-ids>
             <sender-id>Pocztowy</sender-id>
