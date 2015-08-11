@@ -462,4 +462,17 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Raiffeisen Polbank">
+        <sender-ids>
+            <sender-id>Raiffeisen</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="1">.*Haslo: (\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="322066">Operacja nr 1 z dnia 2015-07-16 Podpisywanie zlecen. Liczba zlecen 3 21 024,31 PLN Haslo: 322066</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
