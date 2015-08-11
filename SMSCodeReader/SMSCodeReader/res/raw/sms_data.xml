@@ -448,4 +448,18 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Bank BPH">
+        <sender-ids>
+            <sender-id>3366</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Kod: )(\d{6}).*</expression>
+                <test-data>
+                    <test-message expected-code="586992">Kod SMS nr: 1 Przelew zewnetrzny nr rach. odbiorcy:
+                        34-10100076-0000951000224226 kwota: 44.25 PLN Kod: 586992</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
