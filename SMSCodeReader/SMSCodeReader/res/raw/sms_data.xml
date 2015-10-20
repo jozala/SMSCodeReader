@@ -478,14 +478,17 @@
     <sender display-name="SK Bank">
         <sender-ids>
             <sender-id>SK bank</sender-id>
+            <sender-id>+48661002008</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
-                <expression relevant-group-number="1">.*haslo: (\d{8}).*</expression>
+                <expression relevant-group-number="1">.*haslo:\s?(\d{8}).*</expression>
                 <test-data>
                     <test-message expected-code="90134003">Operacja nr 1 z dn. 2015-07-20 - Przel. z def. Internet UPC z 04...30000002 na 701030...4583 kwota: 60,00 haslo: 90134003</test-message>
                     <test-message expected-code="36465647">Operacja nr 1 z dn. 2015-07-23 - Przelew z 04...30000002 na 191140...1004 kwota: 1 256,00 haslo: 36465647</test-message>
                     <test-message expected-code="70979374">Operacja nr 1 z dn. 2015-07-28 - Przelew z 04...30000002 na 191140...1004 kwota: 1 250,00 haslo: 70979374</test-message>
+                    <test-message expected-code="65472645">SK bank Operacja nr 1 z dn 2015-10-16 - Przel. z def. Moje IKE z 00..20000002 na 123456...0001 kwota: 2,98 haslo:65472645</test-message>
+                    <test-message expected-code="65472645">SK bank Operacja nr 1 z dn 2015-10-16 - Przel. z def. Moje IKE z 00..20000002 na 123456...0001 kwota: 2,98 haslo: 65472645</test-message>
                 </test-data>
             </message>
         </messages>
