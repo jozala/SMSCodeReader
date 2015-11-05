@@ -4,14 +4,14 @@
     <parent>
         <artifactId>SMSCodeReader-parent</artifactId>
         <groupId>pl.aetas.android.smscode</groupId>
-        <version>1.13</version>
+        <version>1.14</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <packaging>apk</packaging>
     <artifactId>SMSCodeReader-it</artifactId>
     <name>SMSCodeReader - Integration tests</name>
-    <version>1.13</version>
+    <version>1.14</version>
 
     <dependencies>
         <dependency>
@@ -23,14 +23,14 @@
             <groupId>pl.aetas.android.smscode</groupId>
             <artifactId>SMSCodeReader</artifactId>
             <type>apk</type>
-            <version>1.13</version>
+            <version>1.14</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>pl.aetas.android.smscode</groupId>
             <artifactId>SMSCodeReader</artifactId>
             <type>jar</type>
-            <version>1.13</version>
+            <version>1.14</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
