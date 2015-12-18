@@ -87,11 +87,12 @@
         </sender-ids>
         <messages>
             <message type="general">
-                <expression relevant-group-number="2">.*(\s?to: )(\S+)(\s?).*</expression>
+                <expression relevant-group-number="2">.*(\s?to: )(\d{8})(\s?).*</expression>
                 <test-data>
                     <test-message expected-code="98765432">ING Bank. Sprawdz KWOTE i RACHUNEK. Kod autoryzacyjny dla przelewu z rachunku 35 XXX 615,
                         na kwote 232,12 to: 98765432 ** 2012.10.30 ** HH:MM:SS.</test-message>
                     <test-message expected-code="10574818">ING Bank. Kod Autoryzacyjny dla doladowania telefonu numer 600123456 na kwote 25.00 to: 10574818 ** 2012.11.05 ** 07:43:27.</test-message>
+                    <test-message expected-code="12345678">ING.SMS nr:1.Sprawdź KWOTE i RACHUNEK. Kod autoryzacyjny zlecenia krajowego na rachunek 88XXXX003 na kwote 1000,00 PLN to: 12345678**19.11.2015 07:18</test-message>
                 </test-data>
             </message>
         </messages>
@@ -293,9 +294,10 @@
         </sender-ids>
         <messages>
             <message type="general">
-                <expression relevant-group-number="2">.*(Haslo: )([a-zA-Z0-9]{6})$</expression>
+                <expression relevant-group-number="2">.*(Haslo: |Kod autoryzacji: )([a-zA-Z0-9]{6})$</expression>
                 <test-data>
                     <test-message expected-code="rw53gs">Operacja z dnia: 2013-04-18 19:45 Przelew z rach: 025941940002 na rach: 881240...010005843281 na kwote: 69  Haslo: rw53gs</test-message>
+                    <test-message expected-code="sg52ki">Idea Bank: Operacja 2 z dnia: 2015-11-18 Przelew z konta: …024515351584 na konto: 254762…253625452514 na kwote: 24,62PLN Kod autoryzacji: sg52ki</test-message>
                 </test-data>
             </message>
         </messages>
@@ -475,20 +477,16 @@
             </message>
         </messages>
     </sender>
-    <sender display-name="SK Bank">
+    <sender display-name="WBS Bank">
         <sender-ids>
-            <sender-id>SK bank</sender-id>
-            <sender-id>+48661002008</sender-id>
+            <sender-id>WBS Bank</sender-id>
+            <sender-id>+48661001034</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
                 <expression relevant-group-number="1">.*haslo:\s?(\d{8}).*</expression>
                 <test-data>
-                    <test-message expected-code="90134003">Operacja nr 1 z dn. 2015-07-20 - Przel. z def. Internet UPC z 04...30000002 na 701030...4583 kwota: 60,00 haslo: 90134003</test-message>
-                    <test-message expected-code="36465647">Operacja nr 1 z dn. 2015-07-23 - Przelew z 04...30000002 na 191140...1004 kwota: 1 256,00 haslo: 36465647</test-message>
-                    <test-message expected-code="70979374">Operacja nr 1 z dn. 2015-07-28 - Przelew z 04...30000002 na 191140...1004 kwota: 1 250,00 haslo: 70979374</test-message>
-                    <test-message expected-code="65472645">SK bank Operacja nr 1 z dn 2015-10-16 - Przel. z def. Moje IKE z 00..20000002 na 123456...0001 kwota: 2,98 haslo:65472645</test-message>
-                    <test-message expected-code="65472645">SK bank Operacja nr 1 z dn 2015-10-16 - Przel. z def. Moje IKE z 00..20000002 na 123456...0001 kwota: 2,98 haslo: 65472645</test-message>
+                    <test-message expected-code="57981273">WBS Bank Operacja nr 3 z dn 2015-10-16 - Przelew 00..20000002 na 123456...0001 kwota: 7,68 haslo: 57981273</test-message>
                 </test-data>
             </message>
         </messages>
