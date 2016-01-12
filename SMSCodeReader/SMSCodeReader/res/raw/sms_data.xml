@@ -202,10 +202,11 @@
         <sender-ids>
             <sender-id>BGZ BNPP</sender-id>
             <sender-id>+48664079151</sender-id>
+            <sender-id>BankBGZBNPP</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
-                <expression relevant-group-number="2">.*(.od.*: )(\d{6,8}).*</expression>
+                <expression relevant-group-number="2">.*(kod: )(\d{8}).*</expression>
                 <test-data>
                     <test-message expected-code="77163162">Operacja nr 1 z dn. 2015-07-06
                         Przelew z rach.: 12345678
@@ -221,8 +222,12 @@
                         kwota: 47,98 PLN
                         kod: 29348474
                         BGZ BNPP</test-message>
-                    <test-message expected-code="723649">Przelew z rach. 86..0005 , odbiorca: ABC , nr rach. 75..2271, kwota: 5,00 PLN Kod nr 123: 723649 BGZ BNP Paribas</test-message>
                 </test-data>
+            </message>
+            <message>
+                <expression relevant-group-number="1">.*\d:\s(\d{6})\s.*</expression>
+                <test-message expected-code="723649">Przelew z rach. 86..0005 , odbiorca: ABC , nr rach. 75..2271, kwota: 5,00 PLN Kod nr 123: 723649 BGZ BNP Paribas</test-message>
+                <test-message expected-code="664350">Przelew z rach. 68..0001, odbiorca: BCA.|, nr rach. 56..5340, kwota: 8,00 PLN Kod nr 129: 664350 BGZ BNP Paribas</test-message>
             </message>
         </messages>
     </sender>
