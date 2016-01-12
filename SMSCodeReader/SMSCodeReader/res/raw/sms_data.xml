@@ -18,6 +18,7 @@
     <sender display-name="Alior Bank">
         <sender-ids>
             <sender-id>Alior Bank</sender-id>
+            <sender-id>AliorBank</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
@@ -26,6 +27,7 @@
                     <test-message expected-code="627902">Alior Bank: Przelew na rachunek 24...1525; Odbiorca: Revelco Sp. z o.o.; Kwota 600,00 EUR ; Kod SMS nr 18 z dn. 18-01-2013: 627902</test-message>
                     <test-message expected-code="746550">Alior Bank: Przelew na rachunek 44...1234; Odbiorca: PayU S.A.; Kwota 125,30 ; Kod SMS nr 3 z dn. 14-01-2013: 746550</test-message>
                     <test-message expected-code="524965">Alior Bank:  Przelewy do zatwierdzenia; 4 szt., kwota: 269,31 PLN; Kod SMS nr 129 z dn. 19-12-2012: 524965</test-message>
+                    <test-message expected-code="341289">!Alior Bank: Przelew na rachunek 34...1234; Odbiorca: A i B; Kwota 1234,12 PLN ; Kod SMS nr 234 z dn. 22-11-2015: 341289</test-message>
                 </test-data>
             </message>
         </messages>
@@ -199,10 +201,11 @@
     <sender display-name="BGZ BNP Paribas">
         <sender-ids>
             <sender-id>BGZ BNPP</sender-id>
+            <sender-id>+48664079151</sender-id>
         </sender-ids>
         <messages>
             <message type="general">
-                <expression relevant-group-number="2">.*(kod: )(\d{8}).*</expression>
+                <expression relevant-group-number="2">.*(.od.*: )(\d{6,8}).*</expression>
                 <test-data>
                     <test-message expected-code="77163162">Operacja nr 1 z dn. 2015-07-06
                         Przelew z rach.: 12345678
@@ -218,6 +221,7 @@
                         kwota: 47,98 PLN
                         kod: 29348474
                         BGZ BNPP</test-message>
+                    <test-message expected-code="723649">Przelew z rach. 86..0005 , odbiorca: ABC , nr rach. 75..2271, kwota: 5,00 PLN Kod nr 123: 723649 BGZ BNP Paribas</test-message>
                 </test-data>
             </message>
         </messages>
