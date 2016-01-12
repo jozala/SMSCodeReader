@@ -495,4 +495,17 @@
             </message>
         </messages>
     </sender>
+    <sender display-name="Volkswagen Bank">
+        <sender-ids>
+            <sender-id>VW BANK</sender-id>
+        </sender-ids>
+        <messages>
+            <message type="general">
+                <expression relevant-group-number="2">.*(Kod: )(\d{8}).*</expression>
+                <test-data>
+                    <test-message expected-code="12391162">Operacja nr 1 z dnia 08.01.2016 10:16:06. Nowe zlec. przelewu. Z rach.: 8121...62260001. Na rach.: 5524...77641720. Kwota: 400,00 PLN. Kod: 12391162</test-message>
+                </test-data>
+            </message>
+        </messages>
+    </sender>
 </senders>
