@@ -511,6 +511,12 @@
                     <test-message expected-code="12391162">Operacja nr 1 z dnia 08.01.2016 10:16:06. Nowe zlec. przelewu. Z rach.: 8121...62260001. Na rach.: 5524...77641720. Kwota: 400,00 PLN. Kod: 12391162</test-message>
                 </test-data>
             </message>
+            <message type="additional">
+                <expression relevant-group-number="2">.*(Haslo: )(\d{8})</expression>
+                <test-data>
+                    <test-message expected-code="54386065">Oper. nr 1 z dn. 13.01.2016 12:31:52. Nowa lokata: 'Lokata Plus - stopa stala'. Kwota lokaty: 2000,00 PLN. Haslo: 54386065</test-message>
+                </test-data>
+            </message>
         </messages>
     </sender>
 </senders>
