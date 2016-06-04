@@ -379,20 +379,6 @@
             </message>
         </messages>
     </sender>
-    <sender display-name="Meritum Bank">
-        <sender-ids>
-            <sender-id>MeritumBank</sender-id>
-            <sender-id>+48588880888</sender-id>
-        </sender-ids>
-        <messages>
-            <message type="general">
-                <expression relevant-group-number="2">.*(:\s)(\d{6})\.$</expression>
-                <test-data>
-                    <test-message expected-code="938475">! 2014.03.31 22:27 Przelew na rachunek: 1111……3362, kwota: 230 PLN, 20140331001, kod nr 1: 938475.</test-message>
-                </test-data>
-            </message>
-        </messages>
-    </sender>
     <sender display-name="Credit Agricole">
         <sender-ids>
             <sender-id>ca24</sender-id>
